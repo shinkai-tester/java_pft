@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void selectRandomGroup() {
-    WebElement drpDwnList = find(By.name("new_group"));
+    WebElement drpDwnList = getWebElement(By.name("new_group"));
     Select objSel = new Select(drpDwnList);
     List<WebElement> weblist = objSel.getOptions();
     int iCnt = weblist.size();
@@ -54,8 +55,8 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void selectRandomDay() {
-    WebElement drpDwnListBday = find(By.name("bday"));
-    WebElement drpDwnListAday = find(By.name("aday"));
+    WebElement drpDwnListBday = getWebElement(By.name("bday"));
+    WebElement drpDwnListAday = getWebElement(By.name("aday"));
     Select objSelBday = new Select(drpDwnListBday);
     Select objSelAday = new Select(drpDwnListAday);
     List<WebElement> weblist = objSelBday.getOptions();
@@ -67,8 +68,8 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void selectRandomMonth() {
-    WebElement drpDwnListBmonth = find(By.name("bmonth"));
-    WebElement drpDwnListAmonth = find(By.name("amonth"));
+    WebElement drpDwnListBmonth = getWebElement(By.name("bmonth"));
+    WebElement drpDwnListAmonth = getWebElement(By.name("amonth"));
     Select objSelBmonth = new Select(drpDwnListBmonth);
     Select objSelAmonth = new Select(drpDwnListAmonth);
     List<WebElement> weblist = objSelBmonth.getOptions();
@@ -81,5 +82,27 @@ public class ContactHelper extends BaseHelper {
 
   public void submitContact() {
     click(By.xpath("(//input[@name='submit'])[1]"));
+  }
+
+  public void selectRandomContact() {
+    List<WebElement> options = getElementList(By.xpath("//tbody//input[@type='checkbox']")) ;
+    Random random = new Random();
+    int index = random.nextInt(options.size());
+    options.get(index).click();
+  }
+
+  public void deleteSelectedContact() {
+    click(By.cssSelector("input[value='Delete']"));
+  }
+
+  public void acceptAlertDelete() {
+    wd.switchTo().alert().accept();
+  }
+
+  public void checkDeleteMessage() {
+    String expectedMessage = "Record successful deleted";
+    String message = getWebElement(By.cssSelector("div.msgbox")).getText();
+    System.out.println(message);
+    Assert.assertEquals(expectedMessage, message);
   }
 }

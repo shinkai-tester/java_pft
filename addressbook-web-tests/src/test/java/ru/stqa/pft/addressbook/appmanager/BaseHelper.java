@@ -5,6 +5,8 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.List;
+
 public class BaseHelper {
   protected ChromeDriver wd;
 
@@ -21,8 +23,12 @@ public class BaseHelper {
     wd.findElement(locator).sendKeys(text);
   }
 
-  protected WebElement find(By locator) {
+  protected WebElement getWebElement(By locator) {
     return wd.findElement(locator);
+  }
+
+  protected List<WebElement> getElementList(By locator) {
+    return wd.findElements(locator);
   }
 
   public boolean isAlertPresent() {
