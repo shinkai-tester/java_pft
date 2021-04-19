@@ -5,7 +5,7 @@ public class ContactData {
   private final String middleName;
   private final String lastName;
   private final String nick;
-  private final String photoPath;
+  private final String photo;
   private final String title;
   private final String company;
   private final String address;
@@ -18,12 +18,12 @@ public class ContactData {
   private final String email3;
   private final String homepage;
 
-  public ContactData(String firstName, String middleName, String lastName, String nick, String photoPath, String title, String company, String address, String homePhone, String mobile, String workPhone, String fax, String email, String email2, String email3, String homepage) {
+  public ContactData(String firstName, String middleName, String lastName, String nick, String photo, String title, String company, String address, String homePhone, String mobile, String workPhone, String fax, String email, String email2, String email3, String homepage) {
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
     this.nick = nick;
-    this.photoPath = photoPath;
+    this.photo = photo;
     this.title = title;
     this.company = company;
     this.address = address;
@@ -53,8 +53,8 @@ public class ContactData {
     return nick;
   }
 
-  public String getPhotoPath() {
-    return photoPath;
+  public String getPhoto() {
+    return photo;
   }
 
   public String getTitle() {
@@ -99,12 +99,5 @@ public class ContactData {
 
   public String getHomepage() {
     return homepage;
-  }
-
-  public String generateYear() {
-    int min = 1950;
-    int max = 2000;
-    int randomYear = (int)Math.floor(Math.random()*(max-min+1)+min);
-    return String.valueOf(randomYear);
   }
 }

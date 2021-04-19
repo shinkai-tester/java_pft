@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Random;
 
 public class BaseHelper {
   protected ChromeDriver wd;
@@ -14,21 +16,46 @@ public class BaseHelper {
     this.wd = wd;
   }
 
-  protected void click(By locator) {
+  public void click(By locator) {
     wd.findElement(locator).click();
   }
 
-  protected void type(By locator, String text) {
+  public void type(By locator, String text) {
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
   }
 
-  protected WebElement getWebElement(By locator) {
+  public WebElement getWebElement(By locator) {
     return wd.findElement(locator);
   }
 
-  protected List<WebElement> getElementList(By locator) {
+  public List<WebElement> getElementList(By locator) {
     return wd.findElements(locator);
+  }
+
+  public void selectRandom(By by) {
+    WebElement drpDwnList = getWebElement(by);
+    Select objSel = new Select(drpDwnList);
+    List<WebElement> weblist = objSel.getOptions();
+    int iCnt = weblist.size();
+    Random num = new Random();
+    int iSelect = num.nextInt(iCnt);
+    objSel.selectByIndex(iSelect);
+  }
+
+  public void selectRandomFromList(By by) {
+    List<WebElement> options = getElementList(by) ;
+    Random random = new Random();
+    int index = random.nextInt(options.size());
+    options.get(index).click();
+  }
+
+  public String getFilePath(String source) {
+    return System.getProperty("user.dir") + "\\src\\test\\resources\\" + source;
+  }
+
+  public void uploadFile(By by, String path) {
+    getWebElement(by).sendKeys(path);
   }
 
   public boolean isAlertPresent() {

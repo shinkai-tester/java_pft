@@ -1,14 +1,9 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-
-import java.util.List;
-import java.util.Random;
 
 public class ContactHelper extends BaseHelper {
 
@@ -24,7 +19,7 @@ public class ContactHelper extends BaseHelper {
     type(By.name("middlename"),contactData.getMiddleName());
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("nickname"), contactData.getNick());
-    type(By.name("photo"),contactData.getPhotoPath());
+    uploadFile(By.name("photo"), getFilePath(contactData.getPhoto()));
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"), contactData.getAddress());
@@ -36,59 +31,40 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("homepage"), contactData.getHomepage());
-    String commonYear = contactData.generateYear();
+    String commonYear = generateYear();
     type(By.name("byear"), commonYear);
     type(By.name("ayear"), commonYear);
     selectRandomDay();
     selectRandomMonth();
-    selectRandomGroup();
-  }
-
-  public void selectRandomGroup() {
-    WebElement drpDwnList = getWebElement(By.name("new_group"));
-    Select objSel = new Select(drpDwnList);
-    List<WebElement> weblist = objSel.getOptions();
-    int iCnt = weblist.size();
-    Random num = new Random();
-    int iSelect = num.nextInt(iCnt);
-    objSel.selectByIndex(iSelect);
   }
 
   public void selectRandomDay() {
-    WebElement drpDwnListBday = getWebElement(By.name("bday"));
-    WebElement drpDwnListAday = getWebElement(By.name("aday"));
-    Select objSelBday = new Select(drpDwnListBday);
-    Select objSelAday = new Select(drpDwnListAday);
-    List<WebElement> weblist = objSelBday.getOptions();
-    int iCnt = weblist.size();
-    Random num = new Random();
-    int iSelect = num.nextInt(iCnt);
-    objSelBday.selectByIndex(iSelect);
-    objSelAday.selectByIndex(iSelect);
+    selectRandom(By.name("bday"));
+    selectRandom(By.name("aday"));
   }
 
   public void selectRandomMonth() {
-    WebElement drpDwnListBmonth = getWebElement(By.name("bmonth"));
-    WebElement drpDwnListAmonth = getWebElement(By.name("amonth"));
-    Select objSelBmonth = new Select(drpDwnListBmonth);
-    Select objSelAmonth = new Select(drpDwnListAmonth);
-    List<WebElement> weblist = objSelBmonth.getOptions();
-    int iCnt = weblist.size();
-    Random num = new Random();
-    int iSelect = num.nextInt(iCnt);
-    objSelBmonth.selectByIndex(iSelect);
-    objSelAmonth.selectByIndex(iSelect);
+    selectRandom(By.name("bmonth"));
+    selectRandom(By.name("amonth"));
   }
 
-  public void submitContact() {
+  public String generateYear() {
+    int min = 1950;
+    int max = 2000;
+    int randomYear = (int)Math.floor(Math.random()*(max-min+1)+min);
+    return String.valueOf(randomYear);
+  }
+
+  public void submitCreation() {
     click(By.xpath("(//input[@name='submit'])[1]"));
   }
 
   public void selectRandomContact() {
-    List<WebElement> options = getElementList(By.xpath("//tbody//input[@type='checkbox']")) ;
-    Random random = new Random();
-    int index = random.nextInt(options.size());
-    options.get(index).click();
+    selectRandomFromList(By.xpath("//tbody//input[@type='checkbox']"));
+  }
+
+  public void editRandomContact() {
+    selectRandomFromList(By.cssSelector("#maintable a[href^='edit.php']"));
   }
 
   public void deleteSelectedContact() {
@@ -102,7 +78,14 @@ public class ContactHelper extends BaseHelper {
   public void checkDeleteMessage() {
     String expectedMessage = "Record successful deleted";
     String message = getWebElement(By.cssSelector("div.msgbox")).getText();
-    System.out.println(message);
     Assert.assertEquals(expectedMessage, message);
+  }
+
+  public void submitUpdate() {
+    click(By.xpath("(//input[@name='update'])[1]"));
+  }
+
+  public void returnToHomePage() {
+    click(By.linkText("home page"));
   }
 }
