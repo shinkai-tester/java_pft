@@ -10,10 +10,19 @@ public class NavigationHelper extends BaseHelper {
   }
 
   public void gotoGroupPage() {
+    if (isElementPresent(By.tagName("h1"))
+            && getWebElement(By.tagName("h1")).getText().equals("Groups")
+            && isElementPresent(By.name("new"))) {
+      // делать ничего не надо
+      return;
+    }
     click(By.linkText("groups"));
   }
 
   public void gotoHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
     click(By.linkText("home"));
   }
 }
