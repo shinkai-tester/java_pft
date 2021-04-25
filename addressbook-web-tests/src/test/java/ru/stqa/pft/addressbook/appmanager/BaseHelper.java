@@ -22,8 +22,11 @@ public class BaseHelper {
 
   public void type(By locator, String text) {
     if (text != null) {
-      wd.findElement(locator).clear();
-      wd.findElement(locator).sendKeys(text);
+      String existingText = getWebElement(locator).getAttribute("value");
+      if (! text.equals(existingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
     }
   }
 
