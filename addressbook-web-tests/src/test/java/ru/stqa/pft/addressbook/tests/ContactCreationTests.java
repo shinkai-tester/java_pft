@@ -11,7 +11,8 @@ public class ContactCreationTests extends TestBase {
     app.contact().fillContactForm(new ContactData("Kazuto", "Nope", "Kirigaya", "Kirito",
             "kirito.jpg", "STL Tester", "RATH", "221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135",
             "+8182-949-7643", "+8184-234-3054", "+8184-234-3054", "+8184-234-4165",
-            "Kazuto.Kirigaya@gomail.com", "Kirito@mail.com", "Black.Swordsman@mail.com", "http://52.68.96.58/"));
+            "Kazuto.Kirigaya@gomail.com", "Kirito@mail.com", "Black.Swordsman@mail.com",
+            "http://52.68.96.58/", "test1"), true);
     app.contact().submitCreation();
     app.navigate().gotoHomePage();
   }

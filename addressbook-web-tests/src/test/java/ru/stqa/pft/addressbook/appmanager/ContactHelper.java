@@ -1,7 +1,9 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -14,7 +16,8 @@ public class ContactHelper extends BaseHelper {
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
-  public void fillContactForm(ContactData contactData) {
+
+  public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstName());
     type(By.name("middlename"),contactData.getMiddleName());
     type(By.name("lastname"), contactData.getLastName());
@@ -31,6 +34,13 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("homepage"), contactData.getHomepage());
+
+    if (creation) {
+      new Select(getWebElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+
     String commonYear = generateYear();
     type(By.name("byear"), commonYear);
     type(By.name("ayear"), commonYear);
