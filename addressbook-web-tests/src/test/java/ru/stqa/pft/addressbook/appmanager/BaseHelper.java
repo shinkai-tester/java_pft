@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -36,8 +37,7 @@ public class BaseHelper {
   }
 
   public void selectRandom(By by) {
-    WebElement drpDwnList = getWebElement(by);
-    Select objSel = new Select(drpDwnList);
+    Select objSel = getSelectObject(by);
     List<WebElement> weblist = objSel.getOptions();
     int iCnt = weblist.size();
     Random num = new Random();
@@ -45,8 +45,17 @@ public class BaseHelper {
     objSel.selectByIndex(iSelect);
   }
 
+  public List<WebElement> getSelectOptions(By locator) {
+    Select select = getSelectObject(locator);
+    return select.getOptions();
+  }
+
+  private Select getSelectObject(By locator) {
+    return new Select(getWebElement(locator));
+  }
+
   public void selectRandomFromList(By by) {
-    List<WebElement> options = getElementList(by) ;
+    List<WebElement> options = getElementList(by);
     Random random = new Random();
     int index = random.nextInt(options.size());
     options.get(index).click();
@@ -57,7 +66,10 @@ public class BaseHelper {
   }
 
   public void uploadFile(By by, String path) {
-    getWebElement(by).sendKeys(path);
+    File file = new File(path);
+    if (file.exists()) {
+      getWebElement(by).sendKeys(path);
+    }
   }
 
   public boolean isAlertPresent() {
@@ -69,7 +81,7 @@ public class BaseHelper {
     }
   }
 
-  protected boolean isElementPresent(By locator) {
+  public boolean isElementPresent(By locator) {
     try {
       getWebElement(locator);
       return true;
