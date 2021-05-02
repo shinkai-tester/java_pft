@@ -14,8 +14,7 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # IntelliJ Idea
-**/.idea
-**.iml
+.idea/workspace.xml
 
 # common
-**/out
+out/
