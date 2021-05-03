@@ -1,14 +1,15 @@
-package ru.stqa.pft.addressbook.tests;
+package ru.stqa.pft.addressbook.tests.groups;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.tests.TestBase;
 
 import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
-  @Test
+  @Test(testName = "Check group deletion")
   public void testGroupDeletion() {
     app.navigate().gotoGroupPage();
     if (! app.group().isThereAGroup()) {

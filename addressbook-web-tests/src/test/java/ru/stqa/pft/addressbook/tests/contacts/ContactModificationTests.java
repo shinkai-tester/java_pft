@@ -1,10 +1,12 @@
-package ru.stqa.pft.addressbook.tests;
+package ru.stqa.pft.addressbook.tests.contacts;
 
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.tests.TestBase;
 
 public class ContactModificationTests extends TestBase {
-  @Test
+
+  @Test(testName = "Check update contact")
   public void testContactModification() {
     if (! app.contact().isThereAContact()) {
       app.contact().createContact(new ContactData("Kazuto", null, "Kirigaya", null,
