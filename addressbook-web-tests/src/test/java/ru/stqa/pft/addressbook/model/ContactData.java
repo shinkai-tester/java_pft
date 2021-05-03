@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private String id;
   private String firstName;
   private String middleName;
   private String lastName;
@@ -25,6 +26,7 @@ public class ContactData {
                      String title, String company, String address, String homePhone, String mobile, String workPhone,
                      String fax, String email, String email2, String email3, String homepage, String group)
   {
+    this.id = null;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -44,7 +46,32 @@ public class ContactData {
     this.group = group;
   }
 
-  public ContactData(String firstName, String lastName, String address) {
+  public ContactData(String id, String firstName, String middleName, String lastName, String nick, String photo,
+                     String title, String company, String address, String homePhone, String mobile, String workPhone,
+                     String fax, String email, String email2, String email3, String homepage, String group)
+  {
+    this.id = id;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.nick = nick;
+    this.photo = photo;
+    this.title = title;
+    this.company = company;
+    this.address = address;
+    this.homePhone = homePhone;
+    this.mobile = mobile;
+    this.workPhone = workPhone;
+    this.fax = fax;
+    this.email = email;
+    this.email2 = email2;
+    this.email3 = email3;
+    this.homepage = homepage;
+    this.group = group;
+  }
+
+  public ContactData(String id, String firstName, String lastName, String address) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.address = address;
@@ -53,7 +80,8 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstName='" + firstName + '\'' +
+            "id='" + id + '\'' +
+            ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", address='" + address + '\'' +
             '}';
@@ -66,17 +94,23 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
-    return Objects.equals(firstName, that.firstName) &&
+    return Objects.equals(id, that.id) &&
+    Objects.equals(firstName, that.firstName) &&
     Objects.equals(lastName, that.lastName) &&
     Objects.equals(address, that.address);
   }
 
   @Override
   public int hashCode() {
-    int result = firstName != null ? firstName.hashCode() : 0;
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
     return result;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public String getFirstName() {

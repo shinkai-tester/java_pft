@@ -57,6 +57,12 @@ public class ContactHelper extends BaseHelper {
     selectRandomMonth();
   }
 
+  public void updateContact(ContactData contact) {
+    fillContactForm(contact, false);
+    submitUpdate();
+    verifyMessage("Address book updated");
+  }
+
   public void selectRandomDay() {
     selectRandom(By.name("bday"));
     selectRandom(By.name("aday"));
@@ -90,8 +96,8 @@ public class ContactHelper extends BaseHelper {
     selectRandomFromList(By.cssSelector("#maintable a[href^='edit.php']"));
   }
 
-  public void deleteSelectedContact() {
-    click(By.cssSelector("input[value='Delete']"));
+  public void initContactModification(int index) {
+    getElementList(By.cssSelector("#maintable a[href^='edit.php']")).get(index).click();
   }
 
   public void deleteContactFromList(int index) {
@@ -136,7 +142,8 @@ public class ContactHelper extends BaseHelper {
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();
       String address = cells.get(3).getText();
-      ContactData contact = new ContactData(firstName, lastName, address);
+      String id = element.findElement(By.tagName("input")).getAttribute("id");
+      ContactData contact = new ContactData(id, firstName, lastName, address);
       contacts.add(contact);
     }
     return contacts;
