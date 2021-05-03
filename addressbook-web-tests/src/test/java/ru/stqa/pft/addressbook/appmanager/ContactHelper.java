@@ -113,4 +113,8 @@ public class ContactHelper extends BaseHelper {
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
+
+  public int getContactCount() {
+    return getElementList(By.name("entry")).size();
+  }
 }
