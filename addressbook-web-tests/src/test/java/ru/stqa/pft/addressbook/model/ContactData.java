@@ -1,22 +1,22 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-  private final String firstName;
-  private final String middleName;
-  private final String lastName;
-  private final String nick;
-  private final String photo;
-  private final String title;
-  private final String company;
-  private final String address;
-  private final String homePhone;
-  private final String mobile;
-  private final String workPhone;
-  private final String fax;
-  private final String email;
-  private final String email2;
-  private final String email3;
-  private final String homepage;
+  private String firstName;
+  private String middleName;
+  private String lastName;
+  private String nick;
+  private String photo;
+  private String title;
+  private String company;
+  private String address;
+  private String homePhone;
+  private String mobile;
+  private String workPhone;
+  private String fax;
+  private String email;
+  private String email2;
+  private String email3;
+  private String homepage;
   private String group;
 
   public ContactData(String firstName, String middleName, String lastName, String nick, String photo,
@@ -40,6 +40,12 @@ public class ContactData {
     this.email3 = email3;
     this.homepage = homepage;
     this.group = group;
+  }
+
+  public ContactData(String firstName, String lastName, String address) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.address = address;
   }
 
   public String getFirstName() {
