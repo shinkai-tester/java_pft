@@ -82,6 +82,10 @@ public class ContactHelper extends BaseHelper {
     selectRandomFromList(By.xpath("//tbody//input[@type='checkbox']"));
   }
 
+  public void selectContact(int index) {
+    getElementList(By.cssSelector("#maintable [name='selected[]']")).get(index).click();
+  }
+
   public void editRandomContact() {
     selectRandomFromList(By.cssSelector("#maintable a[href^='edit.php']"));
   }
@@ -90,14 +94,19 @@ public class ContactHelper extends BaseHelper {
     click(By.cssSelector("input[value='Delete']"));
   }
 
-  public void acceptAlertDelete() {
-    wd.switchTo().alert().accept();
+  public void deleteContactFromList(int index) {
+    selectContact(index);
+    initContactDeletionHome();
+    closeAlertAndGetItsText();
+    verifyMessage("Record successful deleted");
   }
 
-  public void checkDeleteMessage() {
-    String expectedMessage = "Record successful deleted";
-    String message = getWebElement(By.cssSelector("div.msgbox")).getText();
-    Assert.assertEquals(expectedMessage, message);
+  private void initContactDeletionHome() {
+    click(By.cssSelector("input[value='Delete']"));
+  }
+
+  public void acceptAlertDelete() {
+    wd.switchTo().alert().accept();
   }
 
   public void submitUpdate() {

@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.io.File;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Random;
 
 public class BaseHelper {
   protected WebDriver wd;
+  private boolean acceptNextAlert = true;
 
   public BaseHelper(WebDriver wd) {
     this.wd = wd;
@@ -88,5 +90,25 @@ public class BaseHelper {
     } catch (NoSuchElementException ex) {
       return false;
     }
+  }
+
+  public String closeAlertAndGetItsText() {
+    try {
+      Alert alert = wd.switchTo().alert();
+      String alertText = alert.getText();
+      if (acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
+  }
+
+  public void verifyMessage(String expectedMessage) {
+    String actualMessage = getWebElement(By.cssSelector("div.msgbox")).getText();
+    Assert.assertTrue(actualMessage.contains(expectedMessage));
   }
 }
