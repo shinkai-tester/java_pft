@@ -17,7 +17,7 @@ public class ContactModificationTests extends TestBase {
               null, null, null, "221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135",
               null, null, "+8184-234-3054", null,
               "Kazuto.Kirigaya@gomail.com", null, null,
-              null, null), true);
+              null, null));
       app.navigate().gotoHomePage();
     }
     List<ContactData> before = app.contact().getContactList();

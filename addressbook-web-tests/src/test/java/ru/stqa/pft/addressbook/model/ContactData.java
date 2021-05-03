@@ -3,7 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private String id;
+  private int id;
   private String firstName;
   private String middleName;
   private String lastName;
@@ -26,7 +26,7 @@ public class ContactData {
                      String title, String company, String address, String homePhone, String mobile, String workPhone,
                      String fax, String email, String email2, String email3, String homepage, String group)
   {
-    this.id = null;
+    this.id = 0;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -46,7 +46,7 @@ public class ContactData {
     this.group = group;
   }
 
-  public ContactData(String id, String firstName, String middleName, String lastName, String nick, String photo,
+  public ContactData(int id, String firstName, String middleName, String lastName, String nick, String photo,
                      String title, String company, String address, String homePhone, String mobile, String workPhone,
                      String fax, String email, String email2, String email3, String homepage, String group)
   {
@@ -70,47 +70,19 @@ public class ContactData {
     this.group = group;
   }
 
-  public ContactData(String id, String firstName, String lastName, String address) {
+  public ContactData(int id, String firstName, String lastName, String address) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.address = address;
   }
 
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "id='" + id + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", address='" + address + '\'' +
-            '}';
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    ContactData that = (ContactData) o;
-
-    return Objects.equals(id, that.id) &&
-    Objects.equals(firstName, that.firstName) &&
-    Objects.equals(lastName, that.lastName) &&
-    Objects.equals(address, that.address);
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-    result = 31 * result + (address != null ? address.hashCode() : 0);
-    return result;
-  }
-
-  public String getId() {
+  public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getFirstName() {
@@ -179,5 +151,37 @@ public class ContactData {
 
   public String getGroup() {
     return group;
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id='" + id + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", address='" + address + '\'' +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ContactData that = (ContactData) o;
+
+    return id == that.id &&
+    Objects.equals(firstName, that.firstName) &&
+    Objects.equals(lastName, that.lastName) &&
+    Objects.equals(address, that.address);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    return result;
   }
 }

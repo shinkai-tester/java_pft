@@ -120,10 +120,11 @@ public class ContactHelper extends BaseHelper {
   }
 
 
-  public void createContact(ContactData contact, boolean creation) {
+  public void createContact(ContactData contact) {
     initContactCreation();
-    fillContactForm(contact, creation);
+    fillContactForm(contact, true);
     submitCreation();
+    verifyMessage("Information entered into address book.");
   }
 
   public boolean isThereAContact() {
@@ -142,7 +143,7 @@ public class ContactHelper extends BaseHelper {
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();
       String address = cells.get(3).getText();
-      String id = element.findElement(By.tagName("input")).getAttribute("id");
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       ContactData contact = new ContactData(id, firstName, lastName, address);
       contacts.add(contact);
     }

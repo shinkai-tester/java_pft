@@ -16,7 +16,7 @@ public class ContactDeletionTests extends TestBase {
               null, null, null, null,
               null, null, "+8184-234-3054", null,
               "Kazuto.Kirigaya@gomail.com", null, null,
-              null, null), true);
+              null, null));
       app.navigate().gotoHomePage();
     }
     List<ContactData> before = app.contact().getContactList();
