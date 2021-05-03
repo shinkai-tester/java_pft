@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
@@ -13,11 +13,24 @@ public class ContactModificationTests extends TestBase {
   @Test(testName = "Check update contact")
   public void testContactModification() {
     if (! app.contact().isThereAContact()) {
-      app.contact().createContact(new ContactData("Kazuto", null, "Kirigaya", null,
-              null, null, null, "221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135",
-              null, null, "+8184-234-3054", null,
-              "Kazuto.Kirigaya@gomail.com", null, null,
-              null, null));
+      app.contact().createContact(new ContactData(
+              "Kazuto",
+              null,
+              "Kirigaya",
+              null,
+              null,
+              null,
+              null,
+              "221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135",
+              null,
+              null,
+              "+8184-234-3054",
+              null,
+              "Kazuto.Kirigaya@gomail.com",
+              null,
+              null,
+              null,
+              null));
       app.navigate().gotoHomePage();
     }
     List<ContactData> before = app.contact().getContactList();
@@ -48,6 +61,9 @@ public class ContactModificationTests extends TestBase {
 
     before.remove(before.size() - 1);
     before.add(contact);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
   }
 }
