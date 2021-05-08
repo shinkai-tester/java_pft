@@ -31,7 +31,7 @@ public class ContactModificationTests extends TestBase {
               null,
               null,
               null));
-      app.navigate().gotoHomePage();
+      app.goTo().gotoHomePage();
     }
     List<ContactData> before = app.contact().getContactList();
     app.contact().initContactModification(before.size() - 1);
@@ -55,7 +55,7 @@ public class ContactModificationTests extends TestBase {
             "no",
             null);
     app.contact().updateContact(contact);
-    app.navigate().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<ContactData> after = app.contact().getContactList();
     Assert.assertEquals(after.size(), before.size());
 

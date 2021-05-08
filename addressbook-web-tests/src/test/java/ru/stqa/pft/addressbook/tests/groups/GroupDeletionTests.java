@@ -12,22 +12,21 @@ public class GroupDeletionTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.navigate().gotoGroupPage();
-    if (! app.group().isThereAGroup()) {
-      app.group().createGroup(new GroupData("test" + (int)Math.floor(Math.random()*1000), null, null));
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupData("test" + (int)Math.floor(Math.random()*1000), null, null));
     }
   }
 
   @Test(testName = "Check group deletion")
   public void testGroupDeletion() {
-    List<GroupData> before = app.group().getGroupList();
-    app.group().selectGroup(before.size() - 1);
-    app.group().deleteSelectedGroups();
-    app.group().returnToGroupPage();
-    List<GroupData> after = app.group().getGroupList();
+    List<GroupData> before = app.group().list();
+    int index = before.size() - 1;
+    app.group().delete(index);
+    List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() - 1);
 
-    before.remove(before.size() - 1);
+    before.remove(index);
     Assert.assertEquals(before, after);
   }
 

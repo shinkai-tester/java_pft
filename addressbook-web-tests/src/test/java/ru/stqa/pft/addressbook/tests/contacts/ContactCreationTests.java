@@ -33,7 +33,7 @@ public class ContactCreationTests extends TestBase {
             "http://52.68.96.58/",
             "test1");
     app.contact().createContact(contact);
-    app.navigate().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<ContactData> after = app.contact().getContactList();
     Assert.assertEquals(after.size(), before.size() + 1);
 
