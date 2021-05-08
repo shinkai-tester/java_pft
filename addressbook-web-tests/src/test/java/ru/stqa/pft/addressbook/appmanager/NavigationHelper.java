@@ -11,7 +11,7 @@ public class NavigationHelper extends BaseHelper {
 
   public void groupPage() {
     if (isElementPresent(By.tagName("h1"))
-            && getWebElement(By.tagName("h1")).getText().equals("Groups")
+            && getElement(By.tagName("h1")).getText().equals("Groups")
             && isElementPresent(By.name("new"))) {
       // делать ничего не надо
       return;

@@ -43,7 +43,7 @@ public class ContactHelper extends BaseHelper {
         List<WebElement> allOptions = getSelectOptions(By.name("new_group"));
         boolean found = allOptions.stream().anyMatch(allOption -> allOption.getText().equals(contactData.getGroup()));
         if(found) {
-          new Select(getWebElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+          new Select(getElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         }
       } else {
         Assert.assertFalse(isElementPresent(By.name("new_group")));

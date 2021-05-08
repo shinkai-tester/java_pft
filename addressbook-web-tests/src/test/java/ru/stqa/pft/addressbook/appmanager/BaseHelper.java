@@ -22,7 +22,7 @@ public class BaseHelper {
 
   public void type(By locator, String text) {
     if (text != null) {
-      String existingText = getWebElement(locator).getAttribute("value");
+      String existingText = getElement(locator).getAttribute("value");
       if (! text.equals(existingText)) {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
@@ -30,7 +30,7 @@ public class BaseHelper {
     }
   }
 
-  public WebElement getWebElement(By locator) {
+  public WebElement getElement(By locator) {
     return wd.findElement(locator);
   }
 
@@ -53,7 +53,7 @@ public class BaseHelper {
   }
 
   private Select getSelectObject(By locator) {
-    return new Select(getWebElement(locator));
+    return new Select(getElement(locator));
   }
 
   public void selectRandomFromList(By by) {
@@ -70,7 +70,7 @@ public class BaseHelper {
   public void uploadFile(By by, String path) {
     File file = new File(path);
     if (file.exists()) {
-      getWebElement(by).sendKeys(path);
+      getElement(by).sendKeys(path);
     }
   }
 
@@ -85,7 +85,7 @@ public class BaseHelper {
 
   public boolean isElementPresent(By locator) {
     try {
-      getWebElement(locator);
+      getElement(locator);
       return true;
     } catch (NoSuchElementException ex) {
       return false;
@@ -108,7 +108,7 @@ public class BaseHelper {
   }
 
   public void verifyMessage(String expectedMessage) {
-    String actualMessage = getWebElement(By.cssSelector("div.msgbox")).getText();
+    String actualMessage = getElement(By.cssSelector("div.msgbox")).getText();
     Assert.assertTrue(actualMessage.contains(expectedMessage));
   }
 }
