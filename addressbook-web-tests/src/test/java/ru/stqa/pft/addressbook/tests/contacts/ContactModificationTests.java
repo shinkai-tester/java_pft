@@ -1,69 +1,58 @@
 package ru.stqa.pft.addressbook.tests.contacts;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.contact().all().size() == 0) {
+      app.contact().create(new ContactData()
+              .withFirstName("Kazuto")
+              .withLastName("Kazuto")
+              .withTitle("STL Tester")
+              .withCompany("RATH")
+              .withAddress("221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135")
+              .withWorkPhone("+8184-234-3054")
+              .withEmail("Kazuto.Kirigaya@gomail.com"));
+      app.goTo().homePage();
+    }
+  }
+
   @Test(testName = "Check update contact")
   public void testContactModification() {
-    if (! app.contact().isThereAContact()) {
-      app.contact().createContact(new ContactData(
-              "Kazuto",
-              null,
-              "Kirigaya",
-              null,
-              null,
-              null,
-              null,
-              "221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135",
-              null,
-              null,
-              "+8184-234-3054",
-              null,
-              "Kazuto.Kirigaya@gomail.com",
-              null,
-              null,
-              null,
-              null));
-      app.goTo().gotoHomePage();
-    }
-    List<ContactData> before = app.contact().getContactList();
-    app.contact().initContactModification(before.size() - 1);
-    ContactData contact = new ContactData(
-            before.get(before.size() - 1).getId(),
-            "Yennefer",
-            "Nope",
-            "z Vengerbergu",
-            "Yen",
-            "yen.jpg",
-            "Mage",
-            "The Witcher 3",
-            "Corvo Bianco",
-            "+48 69 052 1343",
-            "+48 69 052 1344",
-            "+48 69 052 1345",
-            "+48 69 052 1346",
-            "Yennefer@gomail.com",
-            "Yenna@mail.com",
-            "Yennefer.Vengerberg@mail.com",
-            "no",
-            null);
-    app.contact().updateContact(contact);
-    app.goTo().gotoHomePage();
-    List<ContactData> after = app.contact().getContactList();
-    Assert.assertEquals(after.size(), before.size());
+    Contacts before = app.contact().all();
+    ContactData modifiedContact = before.iterator().next();
+    int randomInt = (int)Math.floor(Math.random()*1000);
+    ContactData newData = new ContactData()
+            .withId(modifiedContact.getId())
+            .withFirstName("Yennefer" + randomInt)
+            .withLastName("z Vengerbergu" + randomInt)
+            .withMiddleName("Nope")
+            .withNick("Yen" + randomInt)
+            .withPhoto("yen.jpg")
+            .withTitle("Mage")
+            .withCompany("The Witcher 3")
+            .withAddress("Corvo Bianco")
+            .withHomePhone("+48 69 052 1343")
+            .withMobile("+48 69 052 1344")
+            .withWorkPhone("+48 69 052 1345")
+            .withFax("+48 69 052 1346")
+            .withEmail("Yennefer" + randomInt + "@gomail.com")
+            .withEmail2("Yenna" + randomInt + "@mail.com")
+            .withEmail3("Yennefer.Vengerberg" + randomInt + "@mail.com");
 
-    before.remove(before.size() - 1);
-    before.add(contact);
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, after);
+    app.contact().modify(newData);
+    Contacts after = app.contact().all();
+    assertEquals(after.size(), before.size());
+    assertThat(after, equalTo(before.withModified(modifiedContact, newData)));
   }
 }

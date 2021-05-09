@@ -56,13 +56,6 @@ public class BaseHelper {
     return new Select(getElement(locator));
   }
 
-  public void selectRandomFromList(By by) {
-    List<WebElement> options = getElementList(by);
-    Random random = new Random();
-    int index = random.nextInt(options.size());
-    options.get(index).click();
-  }
-
   public String getFilePath(String source) {
     return System.getProperty("user.dir") + "\\src\\test\\resources\\" + source;
   }

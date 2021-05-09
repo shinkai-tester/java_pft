@@ -1,46 +1,42 @@
 package ru.stqa.pft.addressbook.tests.contacts;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
   @Test(testName = "Check contact creation")
   public void testContactCreation() {
-    List<ContactData> before = app.contact().getContactList();
-    app.contact().initContactCreation();
-    ContactData contact = new ContactData(
-            "Kazuto",
-            "Nope",
-            "Kirigaya",
-            "Kirito",
-            "kirito.jpg",
-            "STL Tester",
-            "RATH",
-            "221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135",
-            "+8182-949-7643",
-            "+8184-234-3054",
-            "+8184-234-3054",
-            "+8184-234-4165",
-            "Kazuto.Kirigaya@gomail.com",
-            "Kirito@mail.com",
-            "Black.Swordsman@mail.com",
-            "http://52.68.96.58/",
-            "test1");
-    app.contact().createContact(contact);
-    app.goTo().gotoHomePage();
-    List<ContactData> after = app.contact().getContactList();
-    Assert.assertEquals(after.size(), before.size() + 1);
+    Contacts before = app.contact().all();
+    int randomInt = (int)Math.floor(Math.random()*1000);
+    ContactData contact = new ContactData()
+            .withFirstName("Kazuto" + randomInt)
+            .withLastName("Kazuto" + randomInt)
+            .withMiddleName("Nope")
+            .withNick("Kirito" + randomInt)
+            .withPhoto("kirito.jpg")
+            .withTitle("STL Tester")
+            .withCompany("RATH")
+            .withAddress("221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135")
+            .withHomePhone("+8184-234-4165")
+            .withMobile("+8182-949-7643")
+            .withWorkPhone("+8184-234-3054")
+            .withFax("+8184-234-3054")
+            .withEmail("Kazuto.Kirigaya" + randomInt + "@gomail.com")
+            .withEmail2("Black.Swordsman" + randomInt + "@mail.com")
+            .withEmail3("Kirito" + randomInt + "@mail.com")
+            .withHomepage("http://52.68.96.58/");
 
-    before.add(contact);
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, after);
+    app.contact().create(contact);
+    app.goTo().homePage();
+    Contacts after = app.contact().all();
+    assertThat(after.size(), equalTo(before.size() + 1));
+    assertThat(after, equalTo(
+            before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
   }
 }

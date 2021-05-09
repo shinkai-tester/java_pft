@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends BaseHelper {
@@ -20,7 +20,7 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("add new"));
   }
 
-  public void fillContactForm(ContactData contactData, boolean creation) {
+  public void fillForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstName());
     type(By.name("middlename"), contactData.getMiddleName());
     type(By.name("lastname"), contactData.getLastName());
@@ -57,12 +57,6 @@ public class ContactHelper extends BaseHelper {
     selectRandomMonth();
   }
 
-  public void updateContact(ContactData contact) {
-    fillContactForm(contact, false);
-    submitUpdate();
-    verifyMessage("Address book updated");
-  }
-
   public void selectRandomDay() {
     selectRandom(By.name("bday"));
     selectRandom(By.name("aday"));
@@ -80,51 +74,50 @@ public class ContactHelper extends BaseHelper {
     return String.valueOf(randomYear);
   }
 
+  public void create(ContactData contact) {
+    initContactCreation();
+    fillForm(contact, true);
+    submitCreation();
+    verifyMessage("Information entered into address book.");
+  }
+
+  public void modify(ContactData contact) {
+    initContactModification(contact.getId());
+    fillForm(contact, false);
+    submitUpdate();
+    verifyMessage("Address book updated");
+    returnToHomePage();
+  }
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    initContactDeletionHome();
+    closeAlertAndGetItsText();
+    verifyMessage("Record successful deleted");
+  }
+
+  public void returnToHomePage() {
+    click(By.cssSelector("#content a[href='index.php']"));
+  }
+
   public void submitCreation() {
     click(By.xpath("(//input[@name='submit'])[1]"));
   }
 
-  public void selectRandomContact() {
-    selectRandomFromList(By.xpath("//tbody//input[@type='checkbox']"));
+  public void selectContactById(int id) {
+    getElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
-  public void selectContact(int index) {
-    getElementList(By.cssSelector("#maintable [name='selected[]']")).get(index).click();
-  }
-
-  public void editRandomContact() {
-    selectRandomFromList(By.cssSelector("#maintable a[href^='edit.php']"));
-  }
-
-  public void initContactModification(int index) {
-    getElementList(By.cssSelector("#maintable a[href^='edit.php']")).get(index).click();
-  }
-
-  public void deleteContactFromList(int index) {
-    selectContact(index);
-    initContactDeletionHome();
-    closeAlertAndGetItsText();
-    verifyMessage("Record successful deleted");
+  public void initContactModification(int id) {
+    getElement(By.cssSelector("#maintable a[href='edit.php?id=" + id + "']")).click();
   }
 
   private void initContactDeletionHome() {
     click(By.cssSelector("input[value='Delete']"));
   }
 
-  public void acceptAlertDelete() {
-    wd.switchTo().alert().accept();
-  }
-
   public void submitUpdate() {
     click(By.xpath("(//input[@name='update'])[1]"));
-  }
-
-
-  public void createContact(ContactData contact) {
-    initContactCreation();
-    fillContactForm(contact, true);
-    submitCreation();
-    verifyMessage("Information entered into address book.");
   }
 
   public boolean isThereAContact() {
@@ -135,8 +128,8 @@ public class ContactHelper extends BaseHelper {
     return getElementList(By.name("entry")).size();
   }
 
-  public List<ContactData> getContactList() {
-    List<ContactData> contacts= new ArrayList<>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = getElementList(By.name("entry"));
     for (WebElement element: elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -144,8 +137,11 @@ public class ContactHelper extends BaseHelper {
       String lastName = cells.get(1).getText();
       String address = cells.get(3).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      ContactData contact = new ContactData(id, firstName, lastName, address);
-      contacts.add(contact);
+      contacts.add(new ContactData()
+              .withId(id)
+              .withFirstName(firstName)
+              .withLastName(lastName)
+              .withAddress(address));
     }
     return contacts;
   }
