@@ -12,6 +12,7 @@ public class ContactCreationTests extends TestBase {
 
   @Test(testName = "Check contact creation")
   public void testContactCreation() {
+    app.goTo().homePage();
     Contacts before = app.contact().all();
     int randomInt = (int)Math.floor(Math.random()*1000);
     ContactData contact = new ContactData()
@@ -33,9 +34,8 @@ public class ContactCreationTests extends TestBase {
             .withHomepage("http://52.68.96.58/");
 
     app.contact().create(contact);
-    app.goTo().homePage();
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
   }

@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -81,6 +80,7 @@ public class ContactHelper extends BaseHelper {
     submitCreation();
     contactCache = null;
     verifyMessage("Information entered into address book.");
+    returnToHomePage();
   }
 
   public void modify(ContactData contact) {
@@ -128,7 +128,7 @@ public class ContactHelper extends BaseHelper {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getContactCount() {
+  public int count() {
     return getElementList(By.name("entry")).size();
   }
 

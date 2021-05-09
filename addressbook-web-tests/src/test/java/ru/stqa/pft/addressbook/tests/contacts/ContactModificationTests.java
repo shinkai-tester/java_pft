@@ -29,6 +29,7 @@ public class ContactModificationTests extends TestBase {
 
   @Test(testName = "Check update contact")
   public void testContactModification() {
+    app.goTo().homePage();
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     int randomInt = (int)Math.floor(Math.random()*1000);
@@ -51,8 +52,8 @@ public class ContactModificationTests extends TestBase {
             .withEmail3("Yennefer.Vengerberg" + randomInt + "@mail.com");
 
     app.contact().modify(newData);
+    assertEquals(app.contact().count(), before.size());
     Contacts after = app.contact().all();
-    assertEquals(after.size(), before.size());
     assertThat(after, equalTo(before.withModified(modifiedContact, newData)));
   }
 }
