@@ -84,7 +84,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void modify(ContactData contact) {
-    initContactModification(contact.getId());
+    initModification(contact.getId());
     fillForm(contact, false);
     submitUpdate();
     contactCache = null;
@@ -94,10 +94,22 @@ public class ContactHelper extends BaseHelper {
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
-    initContactDeletionHome();
+    initDeletionHome();
     closeAlertAndGetItsText();
     contactCache = null;
     verifyMessage("Record successful deleted");
+  }
+
+  public void clearAll() {
+    selectAll();
+    initDeletionHome();
+    closeAlertAndGetItsText();
+    contactCache = null;
+    verifyMessage("Record successful deleted");
+  }
+
+  public void selectAll() {
+    click(By.id("MassCB"));
   }
 
   public void returnToHomePage() {
@@ -112,11 +124,11 @@ public class ContactHelper extends BaseHelper {
     getElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
-  public void initContactModification(int id) {
+  public void initModification(int id) {
     getElement(By.cssSelector("#maintable a[href='edit.php?id=" + id + "']")).click();
   }
 
-  private void initContactDeletionHome() {
+  private void initDeletionHome() {
     click(By.cssSelector("input[value='Delete']"));
   }
 
@@ -145,13 +157,42 @@ public class ContactHelper extends BaseHelper {
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();
       String address = cells.get(3).getText();
+      String allPhones = cells.get(5).getText();
+      String allEmails = cells.get(4).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       contactCache.add(new ContactData()
               .withId(id)
               .withFirstName(firstName)
               .withLastName(lastName)
-              .withAddress(address));
+              .withAddress(address)
+              .withAllPhones(allPhones)
+              .withAllEmails(allEmails));
     }
     return new Contacts(contactCache);
+  }
+
+  public ContactData infoFromEditForm(ContactData contact) {
+    initModification(contact.getId());
+    String firstname = getElement(By.name("firstname")).getAttribute("value");
+    String lastname = getElement(By.name("lastname")).getAttribute("value");
+    String home = getElement(By.name("home")).getAttribute("value");
+    String mobile = getElement(By.name("mobile")).getAttribute("value");
+    String work = getElement(By.name("work")).getAttribute("value");
+    String address = getElement(By.name("address")).getAttribute("value");
+    String email = getElement(By.name("email")).getAttribute("value");
+    String email2 = getElement(By.name("email2")).getAttribute("value");
+    String email3 = getElement(By.name("email3")).getAttribute("value");
+    wd.navigate().back();
+    return new ContactData()
+            .withId(contact.getId())
+            .withFirstName(firstname)
+            .withLastName(lastname)
+            .withHomePhone(home)
+            .withMobile(mobile)
+            .withWorkPhone(work)
+            .withAddress(address)
+            .withEmail(email)
+            .withEmail2(email2)
+            .withEmail3(email3);
   }
 }
