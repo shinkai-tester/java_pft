@@ -25,7 +25,6 @@ public class ContactHelper extends BaseHelper {
     type(By.name("middlename"), contactData.getMiddleName());
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("nickname"), contactData.getNick());
-    uploadFile(By.name("photo"), getFilePath(contactData.getPhoto()));
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"), contactData.getAddress());
@@ -37,6 +36,7 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("homepage"), contactData.getHomepage());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (contactData.getGroup() != null) {
       if (creation) {

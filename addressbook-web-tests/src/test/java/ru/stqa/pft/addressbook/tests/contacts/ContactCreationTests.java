@@ -5,6 +5,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -15,12 +17,13 @@ public class ContactCreationTests extends TestBase {
     app.goTo().homePage();
     Contacts before = app.contact().all();
     int randomInt = (int)Math.floor(Math.random()*1000);
+    File photo = new File("src/test/resources/kirito.jpg");
     ContactData contact = new ContactData()
             .withFirstName("Kazuto" + randomInt)
             .withLastName("Kazuto" + randomInt)
             .withMiddleName("Nope")
             .withNick("Kirito" + randomInt)
-            .withPhoto("kirito.jpg")
+            .withPhoto(photo)
             .withTitle("STL Tester")
             .withCompany("RATH")
             .withAddress("221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135")

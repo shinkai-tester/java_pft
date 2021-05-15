@@ -30,6 +30,12 @@ public class BaseHelper {
     }
   }
 
+  public void attach(By locator, File file) {
+    if (file != null) {
+        wd.findElement(locator).sendKeys(file.getAbsolutePath());
+    }
+  }
+
   public WebElement getElement(By locator) {
     return wd.findElement(locator);
   }
@@ -54,17 +60,6 @@ public class BaseHelper {
 
   private Select getSelectObject(By locator) {
     return new Select(getElement(locator));
-  }
-
-  public String getFilePath(String source) {
-    return System.getProperty("user.dir") + "\\src\\test\\resources\\" + source;
-  }
-
-  public void uploadFile(By by, String path) {
-    File file = new File(path);
-    if (file.exists()) {
-      getElement(by).sendKeys(path);
-    }
   }
 
   public boolean isAlertPresent() {
