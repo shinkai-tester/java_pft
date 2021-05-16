@@ -1,6 +1,8 @@
 package ru.stqa.pft.addressbook.tests.groups.generationFromFiles;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import ru.stqa.pft.addressbook.model.GroupData;
 
@@ -25,7 +27,7 @@ public class GroupDataProviders {
   @DataProvider
   public static Iterator<Object[]> groupsFromCsv() throws IOException {
     List<Object[]> list = new ArrayList<>();
-    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.csv"));
+    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.csv"));
     String line = reader.readLine();
     while (line != null) {
       String[] split = line.split(";");
@@ -37,7 +39,7 @@ public class GroupDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> groupsFromXml() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"));
+    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.xml"));
     String xml = "";
     String line = reader.readLine();
     while (line != null) {
@@ -50,4 +52,17 @@ public class GroupDataProviders {
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
+  @DataProvider
+  public static Iterator<Object[]> groupsFromJson() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.json"));
+    String json = "";
+    String line = reader.readLine();
+    while (line != null) {
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType()); // =List<GroupData>.class
+    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
 }
