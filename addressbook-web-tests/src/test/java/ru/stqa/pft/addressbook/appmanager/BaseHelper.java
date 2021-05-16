@@ -99,4 +99,13 @@ public class BaseHelper {
     String actualMessage = getElement(By.cssSelector("div.msgbox")).getText();
     Assert.assertTrue(actualMessage.contains(expectedMessage));
   }
+
+  public void selectByValue(By by, String value) {
+    if (value != null) {
+      String existingValue = new Select(getElement(by)).getFirstSelectedOption().getAttribute("value");
+      if (!value.equals(existingValue)) {
+        new Select(getElement(by)).selectByValue(value);
+      }
+    }
+  }
 }

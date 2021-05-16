@@ -9,6 +9,7 @@ public class ContactData {
   private String middleName;
   private String lastName;
   private String nick;
+  private File photo;
   private String title;
   private String company;
   private String address;
@@ -22,8 +23,16 @@ public class ContactData {
   private String email3;
   private String allEmails;
   private String homepage;
+  private String birthDay;
+  private String birthMonth;
+  private String birthYear;
+  private String anniversaryDay;
+  private String anniversaryMonth;
+  private String anniversaryYear;
   private String group;
-  private File photo;
+  private String addAddress;
+  private String addPhone;
+  private String notes;
 
   public ContactData withId(int id) {
     this.id = id;
@@ -110,6 +119,36 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withBirthDay(String birthDay) {
+    this.birthDay = birthDay;
+    return this;
+  }
+
+  public ContactData withBirthMonth(String birthMonth) {
+    this.birthMonth = birthMonth;
+    return this;
+  }
+
+  public ContactData withBirthYear(String birthYear) {
+    this.birthYear = birthYear;
+    return this;
+  }
+
+  public ContactData withAnniversaryDay(String anniversaryDay) {
+    this.anniversaryDay = anniversaryDay;
+    return this;
+  }
+
+  public ContactData withAnniversaryMonth(String anniversaryMonth) {
+    this.anniversaryMonth = anniversaryMonth;
+    return this;
+  }
+
+  public ContactData withAnniversaryYear(String anniversaryYear) {
+    this.anniversaryYear = anniversaryYear;
+    return this;
+  }
+
   public ContactData withGroup(String group) {
     this.group = group;
     return this;
@@ -124,6 +163,22 @@ public class ContactData {
     this.allEmails = allEmails;
     return this;
   }
+
+  public ContactData withAddAddress(String addAddress) {
+    this.addAddress = addAddress;
+    return this;
+  }
+
+  public ContactData withAddPhone(String addPhone) {
+    this.addPhone = addPhone;
+    return this;
+  }
+
+  public ContactData withNotes(String notes) {
+    this.notes = notes;
+    return this;
+  }
+
 
   public int getId() {
     return id;
@@ -193,6 +248,30 @@ public class ContactData {
     return homepage;
   }
 
+  public String getBirthDay() {
+    return birthDay;
+  }
+
+  public String getBirthMonth() {
+    return birthMonth;
+  }
+
+  public String getBirthYear() {
+    return birthYear;
+  }
+
+  public String getAnniversaryDay() {
+    return anniversaryDay;
+  }
+
+  public String getAnniversaryMonth() {
+    return anniversaryMonth;
+  }
+
+  public String getAnniversaryYear() {
+    return anniversaryYear;
+  }
+
   public String getGroup() {
     return group;
   }
@@ -205,6 +284,17 @@ public class ContactData {
     return allEmails;
   }
 
+  public String getAddAddress() {
+    return addAddress;
+  }
+
+  public String getAddPhone() {
+    return addPhone;
+  }
+
+  public String getNotes() {
+    return notes;
+  }
 
   @Override
   public String toString() {

@@ -24,10 +24,12 @@ public class ContactInfoTests extends TestBase {
               .withTitle("STL Tester")
               .withCompany("RATH")
               .withAddress("221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135")
+              .withAddAddress("446-1236, Katsuse, Fujimi-shi, Saitama")
               .withHomePhone("+(8184)-234-4165")
               .withMobile("+8182-949-7643")
               .withWorkPhone("+8184 234 3054")
               .withFax("+8184-234-3054")
+              .withAddPhone("+(8182)949 76 43")
               .withEmail("Kazuto.Kirigaya" + randomInt + "@gomail.com")
               .withEmail2("Black.Swordsman" + randomInt + "@mail.com")
               .withEmail3("Kirito" + randomInt + "@mail.com"));
@@ -51,7 +53,7 @@ public class ContactInfoTests extends TestBase {
   }
 
   private String mergePhones(ContactData contact) {
-    return Stream.of(contact.getHomePhone(), contact.getMobile(), contact.getWorkPhone())
+    return Stream.of(contact.getHomePhone(), contact.getMobile(), contact.getWorkPhone(), contact.getAddPhone())
             .filter((s) -> !s.equals(""))
             .map(ContactInfoTests::cleaned)
             .collect(Collectors.joining("\n"));

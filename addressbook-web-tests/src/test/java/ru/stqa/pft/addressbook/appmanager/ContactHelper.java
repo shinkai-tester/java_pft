@@ -25,6 +25,7 @@ public class ContactHelper extends BaseHelper {
     type(By.name("middlename"), contactData.getMiddleName());
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("nickname"), contactData.getNick());
+    attach(By.name("photo"), contactData.getPhoto());
     type(By.name("title"), contactData.getTitle());
     type(By.name("company"), contactData.getCompany());
     type(By.name("address"), contactData.getAddress());
@@ -36,45 +37,29 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("homepage"), contactData.getHomepage());
-    attach(By.name("photo"), contactData.getPhoto());
-
+    selectByValue(By.name("bday"), contactData.getBirthDay());
+    selectByValue(By.name("bmonth"), contactData.getBirthMonth());
+    type(By.name("byear"), contactData.getBirthYear());
+    selectByValue(By.name("aday"), contactData.getAnniversaryDay());
+    selectByValue(By.name("amonth"), contactData.getAnniversaryMonth());
+    type(By.name("ayear"), contactData.getAnniversaryYear());
+    type(By.name("address2"), contactData.getAddress());
+    type(By.name("phone2"), contactData.getAddPhone());
+    type(By.name("notes"), contactData.getNotes());
     if (contactData.getGroup() != null) {
       if (creation) {
         List<WebElement> allOptions = getSelectOptions(By.name("new_group"));
         boolean found = allOptions.stream().anyMatch(allOption -> allOption.getText().equals(contactData.getGroup()));
-        if(found) {
+        if (found) {
           new Select(getElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         }
       } else {
         Assert.assertFalse(isElementPresent(By.name("new_group")));
       }
     }
-
-    String commonYear = generateYear();
-    type(By.name("byear"), commonYear);
-    type(By.name("ayear"), commonYear);
-    selectRandomDay();
-    selectRandomMonth();
   }
 
-  public void selectRandomDay() {
-    selectRandom(By.name("bday"));
-    selectRandom(By.name("aday"));
-  }
-
-  public void selectRandomMonth() {
-    selectRandom(By.name("bmonth"));
-    selectRandom(By.name("amonth"));
-  }
-
-  public String generateYear() {
-    int min = 1950;
-    int max = 2000;
-    int randomYear = (int) Math.floor(Math.random() * (max - min + 1) + min);
-    return String.valueOf(randomYear);
-  }
-
-  public void create(ContactData contact) {
+    public void create(ContactData contact) {
     initContactCreation();
     fillForm(contact, true);
     submitCreation();
@@ -178,6 +163,7 @@ public class ContactHelper extends BaseHelper {
     String home = getElement(By.name("home")).getAttribute("value");
     String mobile = getElement(By.name("mobile")).getAttribute("value");
     String work = getElement(By.name("work")).getAttribute("value");
+    String addPhone = getElement(By.name("phone2")).getAttribute("value");
     String address = getElement(By.name("address")).getAttribute("value");
     String email = getElement(By.name("email")).getAttribute("value");
     String email2 = getElement(By.name("email2")).getAttribute("value");
@@ -190,6 +176,7 @@ public class ContactHelper extends BaseHelper {
             .withHomePhone(home)
             .withMobile(mobile)
             .withWorkPhone(work)
+            .withAddPhone(addPhone)
             .withAddress(address)
             .withEmail(email)
             .withEmail2(email2)

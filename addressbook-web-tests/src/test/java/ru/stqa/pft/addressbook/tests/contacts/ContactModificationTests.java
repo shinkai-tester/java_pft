@@ -52,7 +52,13 @@ public class ContactModificationTests extends TestBase {
             .withFax("+48 69 052 1346")
             .withEmail("Yennefer" + randomInt + "@gomail.com")
             .withEmail2("Yenna" + randomInt + "@mail.com")
-            .withEmail3("Yennefer.Vengerberg" + randomInt + "@mail.com");
+            .withEmail3("Yennefer.Vengerberg" + randomInt + "@mail.com")
+            .withBirthDay("15")
+            .withBirthMonth("November")
+            .withBirthYear("1992")
+            .withAnniversaryDay("15")
+            .withAnniversaryMonth("november")
+            .withAnniversaryYear("2022");
 
     app.contact().modify(newData);
     assertEquals(app.contact().count(), before.size());

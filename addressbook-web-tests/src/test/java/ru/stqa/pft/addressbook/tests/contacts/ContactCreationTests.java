@@ -17,13 +17,12 @@ public class ContactCreationTests extends TestBase {
     app.goTo().homePage();
     Contacts before = app.contact().all();
     int randomInt = (int)Math.floor(Math.random()*1000);
-    File photo = new File("src/test/resources/photos/kirito.jpg");
     ContactData contact = new ContactData()
             .withFirstName("Kazuto" + randomInt)
             .withLastName("Kazuto" + randomInt)
             .withMiddleName("Nope")
             .withNick("Kirito" + randomInt)
-            .withPhoto(photo)
+            .withPhoto(new File("src/test/resources/photos/kirito.jpg"))
             .withTitle("STL Tester")
             .withCompany("RATH")
             .withAddress("221-1082, Kamishingashi, Kawagoe-shi, Saitama, 350-1135")
@@ -34,7 +33,16 @@ public class ContactCreationTests extends TestBase {
             .withEmail("Kazuto.Kirigaya" + randomInt + "@gomail.com")
             .withEmail2("Black.Swordsman" + randomInt + "@mail.com")
             .withEmail3("Kirito" + randomInt + "@mail.com")
-            .withHomepage("http://52.68.96.58/");
+            .withHomepage("http://52.68.96.58/")
+            .withBirthDay("7")
+            .withBirthMonth("October")
+            .withBirthYear("2001")
+            .withAnniversaryDay("7")
+            .withAnniversaryMonth("October")
+            .withAnniversaryYear("2021")
+            .withAddAddress("446-1236, Katsuse, Fujimi-shi, Saitama")
+            .withAddPhone("+(8182)949 76 43")
+            .withNotes("I’d rather trust and regret, than doubt and regret.");
 
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
