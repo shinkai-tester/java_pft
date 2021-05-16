@@ -35,7 +35,7 @@ public class ContactModificationTests extends TestBase {
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     int randomInt = (int)Math.floor(Math.random()*1000);
-    File photo = new File("src/test/resources/yen.jpg");
+    File photo = new File("src/test/resources/photos/yen.jpg");
     ContactData newData = new ContactData()
             .withId(modifiedContact.getId())
             .withFirstName("Yennefer" + randomInt)

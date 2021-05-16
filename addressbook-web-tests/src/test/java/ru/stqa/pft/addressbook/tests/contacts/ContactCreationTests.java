@@ -17,7 +17,7 @@ public class ContactCreationTests extends TestBase {
     app.goTo().homePage();
     Contacts before = app.contact().all();
     int randomInt = (int)Math.floor(Math.random()*1000);
-    File photo = new File("src/test/resources/kirito.jpg");
+    File photo = new File("src/test/resources/photos/kirito.jpg");
     ContactData contact = new ContactData()
             .withFirstName("Kazuto" + randomInt)
             .withLastName("Kazuto" + randomInt)

@@ -9,7 +9,6 @@ public class ContactData {
   private String middleName;
   private String lastName;
   private String nick;
-//  private String photo;
   private String title;
   private String company;
   private String address;
