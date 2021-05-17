@@ -42,7 +42,7 @@ public class ContactCreationTests extends TestBase {
             .withAnniversaryYear("2021")
             .withAddAddress("446-1236, Katsuse, Fujimi-shi, Saitama")
             .withAddPhone("+(8182)949 76 43")
-            .withNotes("I’d rather trust and regret, than doubt and regret.");
+            .withNotes("I would rather trust and regret, than doubt and regret.");
 
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size() + 1));

@@ -40,24 +40,33 @@ public class GroupDataGenerator {
 
   private void run() throws IOException {
     List<GroupData> groups = generateGroups(count);
-    if (format.equals("csv")) {
-      saveAsCsv(groups, new File(file)); // -c 3 -f src/test/resources/dataFiles/groups/groups.csv -d csv
-    } else if (format.equals("xml")) {
-      saveAsXml(groups, new File(file)); // -c 3 -f src/test/resources/dataFiles/groups/groups.xml -d xml
-    } else if (format.equals("json")) {
-      saveAsJson(groups, new File(file)); // -c 3 -f src/test/resources/dataFiles/groups/groups.json -d json
-    } else {
-      System.out.println("Unrecognized format " + format);
+    switch (format) {
+      case "csv":
+        saveAsCsv(groups, new File(file)); // -c 3 -f src/test/resources/dataFiles/groups/groups.csv -d csv
+
+        break;
+      case "xml":
+        saveAsXml(groups, new File(file)); // -c 3 -f src/test/resources/dataFiles/groups/groups.xml -d xml
+
+        break;
+      case "json":
+        saveAsJson(groups, new File(file)); // -c 3 -f src/test/resources/dataFiles/groups/groups.json -d json
+
+        break;
+      default:
+        System.out.println("Unrecognized format " + format);
+        break;
     }
   }
 
   private List<GroupData> generateGroups(int count) {
     List<GroupData> groups = new ArrayList<GroupData>();
     for (int i = 0; i < count; i++) {
+      int ranfomInt = (int)Math.floor(Math.random()*100);
       groups.add(new GroupData()
-              .withName(String.format("test %s", i))
-              .withHeader(String.format("header %s", i))
-              .withFooter(String.format("footer %s", i)));
+              .withName(String.format("test%s", ranfomInt))
+              .withHeader(String.format("header %s", ranfomInt))
+              .withFooter(String.format("footer %s", ranfomInt)));
     }
     return groups;
   }
