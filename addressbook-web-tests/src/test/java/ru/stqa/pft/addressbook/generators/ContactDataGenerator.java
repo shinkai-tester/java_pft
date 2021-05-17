@@ -14,7 +14,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactDataGenerator extends RandomContactData{
+public class ContactDataGenerator extends RandomContactData {
   @Parameter(names = "-c", description = "Number of the contacts")
   public int count;
 
@@ -56,23 +56,23 @@ public class ContactDataGenerator extends RandomContactData{
   }
 
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
-    Writer writer = new FileWriter(file);
-    for (ContactData contact: contacts) {
-      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
-              contact.getFirstName(), contact.getMiddleName(), contact.getLastName(), contact.getNick(),
-              contact.getPhoto(), contact.getTitle(), contact.getCompany(), contact.getAddress(), contact.getHomePhone(),
-              contact.getMobile(), contact.getWorkPhone(), contact.getEmail(),
-              contact.getBirthDay(), contact.getBirthMonth(), contact.getBirthYear(), contact.getNotes()));
+    try (Writer writer = new FileWriter(file)) {
+      for (ContactData contact : contacts) {
+        writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
+                contact.getFirstName(), contact.getMiddleName(), contact.getLastName(), contact.getNick(),
+                contact.getPhoto(), contact.getTitle(), contact.getCompany(), contact.getAddress(), contact.getHomePhone(),
+                contact.getMobile(), contact.getWorkPhone(), contact.getEmail(),
+                contact.getBirthDay(), contact.getBirthMonth(), contact.getBirthYear(), contact.getNotes()));
+      }
     }
-    writer.close();
   }
 
 
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(json);
+    }
   }
 }
