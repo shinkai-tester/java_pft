@@ -40,29 +40,29 @@ public class GroupDataProviders {
   @DataProvider
   public static Iterator<Object[]> groupsFromXml() throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.xml"));
-    String xml = "";
+    StringBuilder xml = new StringBuilder();
     String line = reader.readLine();
     while (line != null) {
-      xml += line;
+      xml.append(line);
       line = reader.readLine();
     }
     XStream xstream = new XStream();
     xstream.processAnnotations(GroupData.class);
-    List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
+    List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml.toString());
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
   @DataProvider
   public static Iterator<Object[]> groupsFromJson() throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.json"));
-    String json = "";
+    StringBuilder json = new StringBuilder();
     String line = reader.readLine();
     while (line != null) {
-      json += line;
+      json.append(line);
       line = reader.readLine();
     }
     Gson gson = new Gson();
-    List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType()); // =List<GroupData>.class
+    List<GroupData> groups = gson.fromJson(json.toString(), new TypeToken<List<GroupData>>(){}.getType()); // =List<GroupData>.class
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 }

@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupFromCSVTests extends TestBase {
 
   @Test(testName = "Check group creation from CSV", dataProvider = "groupsFromCsv", dataProviderClass = GroupDataProviders.class)
-  public void testXMLGroupCreation(GroupData group) {
+  public void testCSVGroupCreation(GroupData group) {
     app.goTo().groupPage();
     Groups before = app.group().all();
     app.group().create(group);

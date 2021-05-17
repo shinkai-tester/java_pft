@@ -44,15 +44,6 @@ public class BaseHelper {
     return wd.findElements(locator);
   }
 
-  public void selectRandom(By by) {
-    Select objSel = getSelectObject(by);
-    List<WebElement> weblist = objSel.getOptions();
-    int iCnt = weblist.size();
-    Random num = new Random();
-    int iSelect = num.nextInt(iCnt);
-    objSel.selectByIndex(iSelect);
-  }
-
   public List<WebElement> getSelectOptions(By locator) {
     Select select = getSelectObject(locator);
     return select.getOptions();

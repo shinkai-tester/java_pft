@@ -1,0 +1,53 @@
+[
+  {
+    "firstName": "Deshawn",
+    "middleName": "Shelli",
+    "lastName": "Schinner",
+    "nick": "Cloyster",
+    "title": "Human Technology Technician",
+    "company": "Veum, Schimmel and Spencer",
+    "address": "90349 Kemmer Trail, East Langmouth, AR 66996",
+    "homePhone": "1-021-580-6756 x9077",
+    "mobile": "(102) 144-1572",
+    "workPhone": "(012) 385-6392 x384",
+    "email": "Deshawn_Schinner@gmail.com",
+    "birthDay": "6",
+    "birthMonth": "February",
+    "birthYear": "1961",
+    "notes": "Perfect! My experiment worked! They re all exactly 25 minutes slow!"
+  },
+  {
+    "firstName": "Bruce",
+    "middleName": "McKenzie",
+    "lastName": "VonRueden",
+    "nick": "Cubone",
+    "title": "Administration Supervisor",
+    "company": "Oberbrunner-Reichel",
+    "address": "0256 Raynor Port, Port Arturo, LA 93658",
+    "homePhone": "1-899-617-4209 x338",
+    "mobile": "(153) 971-9846",
+    "workPhone": "1-394-312-8973",
+    "email": "Bruce_VonRueden@gmail.com",
+    "birthDay": "19",
+    "birthMonth": "October",
+    "birthYear": "1998",
+    "notes": "Hey, McFly! I thought I told you never to come in here."
+  },
+  {
+    "firstName": "Rey",
+    "middleName": "Towne",
+    "lastName": "Schmidt",
+    "nick": "Grimer",
+    "title": "Legal Administrator",
+    "company": "Stoltenberg, Blick and Farrell",
+    "address": "Apt. 575 85340 Amira Walk, Bergstrommouth, UT 94150-8729",
+    "homePhone": "644-098-2189",
+    "mobile": "(654) 826-9229",
+    "workPhone": "906-239-0598 x871",
+    "email": "Rey_Schmidt@gmail.com",
+    "birthDay": "6",
+    "birthMonth": "January",
+    "birthYear": "1965",
+    "notes": "I ve had enough practical jokes for one evening. Good night, future boy!"
+  }
+]
