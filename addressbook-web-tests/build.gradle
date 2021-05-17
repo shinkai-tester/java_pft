@@ -14,6 +14,32 @@ dependencies {
     implementation 'com.github.javafaker:javafaker:1.0.2'
 }
 
-test {
-    useTestNG()
+task testGroups (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-groups.xml'
+    }
+}
+
+task testContacts (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-contacts.xml'
+    }
+}
+
+task testAllBase (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testngBaseCommon.xml'
+    }
+}
+
+task testGroupsFromFiles (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-groups-fromFiles.xml'
+    }
+}
+
+task testContactsFromFiles (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-contacts-fromFiles.xml'
+    }
 }

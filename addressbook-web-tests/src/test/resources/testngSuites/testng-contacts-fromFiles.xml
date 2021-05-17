@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Generate contacts from files (csv and json)" verbose="1" >
+    <test name="Contacts from files" >
+        <classes>
+            <class name="ru.stqa.pft.addressbook.tests.contacts.generationFromFiles.ContactFromCSVTests" />
+            <class name="ru.stqa.pft.addressbook.tests.contacts.generationFromFiles.ContactFromJSONTests" />
+        </classes>
+    </test>
+</suite>

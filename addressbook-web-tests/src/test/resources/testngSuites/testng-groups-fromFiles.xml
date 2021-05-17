@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Generate groups from files (csv, json, xml)" verbose="1" >
+    <test name="Groups from files" >
+        <classes>
+            <class name="ru.stqa.pft.addressbook.tests.groups.generationFromFiles.GroupFromCSVTests" />
+            <class name="ru.stqa.pft.addressbook.tests.groups.generationFromFiles.GroupFromJSONTests" />
+            <class name="ru.stqa.pft.addressbook.tests.groups.generationFromFiles.GroupFromXMLTests" />
+        </classes>
+    </test>
+</suite>
