@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.tests.database;
+package ru.stqa.pft.addressbook.tests.getDataFromDB;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

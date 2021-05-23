@@ -3,17 +3,17 @@
 <suite name="Base groups and contacts tests" verbose="1" >
     <test name="Groups" >
         <classes>
-            <class name="ru.stqa.pft.addressbook.tests.groups.GroupCreationTests" />
-            <class name="ru.stqa.pft.addressbook.tests.groups.GroupModificationTests" />
-            <class name="ru.stqa.pft.addressbook.tests.groups.GroupDeletionTests" />
+            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupCreationTests" />
+            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupModificationTests" />
+            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupDeletionTests" />
         </classes>
     </test>
     <test name="Contacts">
         <classes>
-            <class name="ru.stqa.pft.addressbook.tests.contacts.ContactCreationTests"/>
-            <class name="ru.stqa.pft.addressbook.tests.contacts.ContactModificationTests"/>
-            <class name="ru.stqa.pft.addressbook.tests.contacts.ContactInfoTests"/>
-            <class name="ru.stqa.pft.addressbook.tests.contacts.ContactDeletionTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.contacts.baseChecks.ContactCreationTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.contacts.baseChecks.ContactModificationTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.contacts.baseChecks.ContactInfoTests"/>
+            <class name="ru.stqa.pft.addressbook.tests.contacts.baseChecks.ContactDeletionTests"/>
         </classes>
     </test>
 </suite>

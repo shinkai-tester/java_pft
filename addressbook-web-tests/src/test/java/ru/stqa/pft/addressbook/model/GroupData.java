@@ -70,8 +70,10 @@ public class GroupData {
   @Override
   public String toString() {
     return "GroupData{" +
-            "id='" + id + '\'' +
+            "id=" + id +
             ", name='" + name + '\'' +
+            ", header='" + header + '\'' +
+            ", footer='" + footer + '\'' +
             '}';
   }
 
@@ -82,14 +84,18 @@ public class GroupData {
 
     GroupData groupData = (GroupData) o;
 
-    if (id != groupData.id) return false;
-    return Objects.equals(name, groupData.name);
+    return id == groupData.id &&
+    Objects.equals(name, groupData.name) &&
+    Objects.equals(header, groupData.header) &&
+    Objects.equals(footer, groupData.footer);
   }
 
   @Override
   public int hashCode() {
     int result = id;
     result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (header != null ? header.hashCode() : 0);
+    result = 31 * result + (footer != null ? footer.hashCode() : 0);
     return result;
   }
 }

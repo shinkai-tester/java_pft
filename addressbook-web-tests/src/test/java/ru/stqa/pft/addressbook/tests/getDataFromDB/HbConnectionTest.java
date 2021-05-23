@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.tests.database;
+package ru.stqa.pft.addressbook.tests.getDataFromDB;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

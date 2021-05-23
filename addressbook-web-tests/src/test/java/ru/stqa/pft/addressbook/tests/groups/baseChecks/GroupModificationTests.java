@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.tests.groups;
+package ru.stqa.pft.addressbook.tests.groups.baseChecks;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

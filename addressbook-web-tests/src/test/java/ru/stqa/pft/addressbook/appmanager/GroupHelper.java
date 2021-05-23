@@ -55,6 +55,7 @@ public class GroupHelper extends BaseHelper {
     fillGroupForm(group);
     submitGroupCreation();
     groupCache = null;
+    verifyMessage("A new group has been entered into the address book.");
     returnToGroupPage();
   }
 
@@ -64,6 +65,7 @@ public class GroupHelper extends BaseHelper {
     fillGroupForm(group);
     submitGroupModification();
     groupCache = null;
+    verifyMessage("Group record has been updated.");
     returnToGroupPage();
   }
 
@@ -71,7 +73,25 @@ public class GroupHelper extends BaseHelper {
     selectGroupById(group.getId());
     deleteSelectedGroups();
     groupCache = null;
+    verifyMessage("Group has been removed.");
     returnToGroupPage();
+  }
+
+  public void deleteAll() {
+    selectAll();
+    deleteSelectedGroups();
+    groupCache = null;
+    verifyMessage("Group has been removed.");
+    returnToGroupPage();
+  }
+
+  private void selectAll() {
+    List<WebElement> checkboxes = getElementList(By.name("selected[]"));
+    for (WebElement checkbox : checkboxes) {
+      if (!checkbox.isSelected()) {
+        checkbox.click();
+      }
+    }
   }
 
   public boolean isThereAGroup() {

@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.tests.contacts;
+package ru.stqa.pft.addressbook.tests.contacts.baseChecks;
 
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
