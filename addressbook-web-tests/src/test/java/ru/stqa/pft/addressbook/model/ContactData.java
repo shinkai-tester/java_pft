@@ -31,6 +31,7 @@ public class ContactData {
   @Column(name = "nickname")
   private String nick;
 
+  @Expose
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;

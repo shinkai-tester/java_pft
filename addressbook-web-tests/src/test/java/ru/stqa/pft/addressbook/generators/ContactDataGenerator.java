@@ -3,8 +3,7 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.io.File;
@@ -69,7 +68,10 @@ public class ContactDataGenerator extends RandomContactData {
 
 
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
-    Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    JsonSerializer<File> serializer = (src, typeOfSrc, context) -> new JsonPrimitive(src.getPath());
+    Gson gson = new GsonBuilder()
+            .registerTypeAdapter(File.class, serializer)
+            .setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
     try (Writer writer = new FileWriter(file)) {
       writer.write(json);

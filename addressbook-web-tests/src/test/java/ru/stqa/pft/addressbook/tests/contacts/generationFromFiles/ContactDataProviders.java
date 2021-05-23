@@ -1,6 +1,8 @@
 package ru.stqa.pft.addressbook.tests.contacts.generationFromFiles;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -48,6 +50,8 @@ public class ContactDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> contactsFromJson() throws IOException {
+    JsonDeserializer<File> deserializer = (json, typeOfT, context) -> new File(json.getAsJsonPrimitive().getAsString());
+    Gson gson = new GsonBuilder().registerTypeAdapter(File.class, deserializer).create();
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/contacts/contacts.json"))) {
       StringBuilder json = new StringBuilder();
       String line = reader.readLine();
@@ -55,7 +59,6 @@ public class ContactDataProviders {
         json.append(line);
         line = reader.readLine();
       }
-      Gson gson = new Gson();
       List<ContactData> contacts = gson.fromJson(json.toString(), new TypeToken<List<ContactData>>() {
       }.getType());
       return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
