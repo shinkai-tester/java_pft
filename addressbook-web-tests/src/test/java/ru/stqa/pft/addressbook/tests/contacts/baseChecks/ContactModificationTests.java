@@ -34,7 +34,7 @@ public class ContactModificationTests extends TestBase {
     app.goTo().homePage();
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
-    int randomInt = (int)Math.floor(Math.random()*1000);
+    int randomInt = (int) Math.floor(Math.random() * 1000);
     File photo = new File("src/test/resources/photos/yen.jpg");
     ContactData newData = new ContactData()
             .withId(modifiedContact.getId())
@@ -59,7 +59,7 @@ public class ContactModificationTests extends TestBase {
             .withAnniversaryDay("15")
             .withAnniversaryMonth("november")
             .withAnniversaryYear("2022");
-
+    app.contact().initModification(modifiedContact.getId());
     app.contact().modify(newData);
     assertEquals(app.contact().count(), before.size());
     Contacts after = app.contact().all();

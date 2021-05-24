@@ -59,7 +59,7 @@ public class ContactHelper extends BaseHelper {
     }
   }
 
-    public void create(ContactData contact) {
+  public void create(ContactData contact) {
     initContactCreation();
     fillForm(contact, true);
     submitCreation();
@@ -69,7 +69,6 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void modify(ContactData contact) {
-    initModification(contact.getId());
     fillForm(contact, false);
     submitUpdate();
     contactCache = null;
@@ -97,6 +96,10 @@ public class ContactHelper extends BaseHelper {
     click(By.id("MassCB"));
   }
 
+  public void viewDetails(int id) {
+    getElement(By.cssSelector("#maintable a[href^='view.php?id=" + id + "']")).click();
+  }
+
   public void returnToHomePage() {
     click(By.cssSelector("#content a[href='index.php']"));
   }
@@ -111,6 +114,10 @@ public class ContactHelper extends BaseHelper {
 
   public void initModification(int id) {
     getElement(By.cssSelector("#maintable a[href='edit.php?id=" + id + "']")).click();
+  }
+
+  public void initModificationFromDetails(int id) {
+    getElement(By.name("modifiy")).click();
   }
 
   private void initDeletionHome() {
@@ -137,7 +144,7 @@ public class ContactHelper extends BaseHelper {
     }
     contactCache = new Contacts();
     List<WebElement> elements = getElementList(By.name("entry"));
-    for (WebElement element: elements) {
+    for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();

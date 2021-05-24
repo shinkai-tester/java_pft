@@ -21,7 +21,7 @@ public class RandomContactData {
     String nickname = faker.pokemon().name();
     File photo = new File("src/test/resources/photos/" + getRandomPhoto());
     String jobTitle = faker.job().title();
-    String company = faker.company().name();
+    String company = faker.company().name().replace("'", " ");;
     String address = faker.address().fullAddress();
     String homePhone = faker.phoneNumber().phoneNumber();
     String mobile = faker.phoneNumber().cellPhone();

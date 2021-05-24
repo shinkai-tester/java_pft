@@ -92,7 +92,7 @@ public class ContactData {
   private String homepage;
 
   @Expose
-  @Column(name="bday", columnDefinition = "TINYINT")
+  @Column(name = "bday", columnDefinition = "tinyint")
   private String birthDay;
 
   @Expose
@@ -103,13 +103,13 @@ public class ContactData {
   @Column(name="byear")
   private String birthYear;
 
-  @Transient
+  @Column(name = "aday", columnDefinition = "tinyint")
   private String anniversaryDay;
 
-  @Transient
+  @Column(name = "amonth")
   private String anniversaryMonth;
 
-  @Transient
+  @Column(name = "ayear")
   private String anniversaryYear;
 
   @Transient
@@ -124,7 +124,8 @@ public class ContactData {
   private String addPhone;
 
   @Expose
-  @Transient
+  @Column(name = "notes")
+  @Type(type = "text")
   private String notes;
 
   public ContactData withId(int id) {
@@ -294,7 +295,7 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return new File(photo);
+    return photo != null ? new File(photo) : null;
   }
 
   public String getTitle() {
@@ -392,10 +393,13 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "id='" + id + '\'' +
+            "id=" + id +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
-            ", address='" + address + '\'' +
+            ", title='" + title + '\'' +
+            ", company='" + company + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", email='" + email + '\'' +
             '}';
   }
 

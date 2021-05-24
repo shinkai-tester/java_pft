@@ -13,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 public class GroupDBDeletionTests extends TestBase {
 
   @BeforeMethod
-  public void ensureDBPreconditions() {
+  public void dbEnsurePreconditions() {
     app.goTo().groupPage();
     GroupData newGroup = new GroupData().withName("test1");
     if (app.db().groups().size() == 0) {
@@ -22,7 +22,7 @@ public class GroupDBDeletionTests extends TestBase {
   }
 
   @Test(testName = "Check group deletion: DB assert")
-  public void testDBGroupDeletion() {
+  public void dbTestGroupDeletion() {
     Groups before = app.db().groups();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
@@ -33,7 +33,7 @@ public class GroupDBDeletionTests extends TestBase {
   }
 
   @Test(testName = "Check all groups deletion: DB assert")
-  public void testDBallGroupsDeletion() {
+  public void dbTestAllGroupsDeletion() {
     Groups before = app.db().groups();
     app.group().deleteAll();
     Groups after = app.db().groups();

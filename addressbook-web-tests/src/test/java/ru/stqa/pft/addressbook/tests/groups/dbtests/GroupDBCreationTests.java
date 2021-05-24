@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupDBCreationTests extends TestBase {
 
   @Test(testName = "Check group creation: DB assert")
-  public void testDBGroupCreation() {
+  public void dbTestGroupCreation() {
     Groups before = app.db().groups();
     app.goTo().groupPage();
     GroupData group = new GroupData().withName("test1").withHeader("groupHeader1").withFooter("groupFooter1");
@@ -24,7 +24,7 @@ public class GroupDBCreationTests extends TestBase {
   }
 
   @Test(testName = "Unable to create a group with ' : DB assert")
-  public void testDBBadGroupCreation() {
+  public void dbTestBadGroupCreation() {
     Groups before = app.db().groups();
     app.goTo().groupPage();
     GroupData group = new GroupData().withName("test'");

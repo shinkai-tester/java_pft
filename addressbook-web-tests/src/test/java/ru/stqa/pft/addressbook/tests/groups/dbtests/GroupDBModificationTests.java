@@ -13,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 public class GroupDBModificationTests extends TestBase {
 
   @BeforeMethod
-  public void ensureDBPreconditions() {
+  public void dbEnsurePreconditions() {
     app.goTo().groupPage();
     GroupData newGroup = new GroupData().withName("test1").withHeader("header1").withFooter("footer1");
     if (app.db().groups().size() == 0) {
@@ -22,7 +22,7 @@ public class GroupDBModificationTests extends TestBase {
   }
 
   @Test(testName = "Check group update: DB assert")
-  public void testDBGroupModification() {
+  public void dbTestGroupModification() {
     Groups before = app.db().groups();
     int randomInt = (int) Math.floor(Math.random() * 1000);
     GroupData modifiedGroup = before.iterator().next();
