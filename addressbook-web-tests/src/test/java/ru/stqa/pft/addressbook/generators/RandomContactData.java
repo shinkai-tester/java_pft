@@ -15,13 +15,13 @@ public class RandomContactData {
   Faker faker = new Faker();
 
   public ContactData getRandomContact() {
-    String firstName = faker.name().firstName();
-    String middleName = faker.name().nameWithMiddle().split(" ")[1];
-    String lastName = faker.name().lastName();
-    String nickname = faker.pokemon().name();
+    String firstName = clean(faker.name().firstName());
+    String middleName = clean(faker.name().nameWithMiddle().split(" ")[1]);
+    String lastName = clean(faker.name().lastName());
+    String nickname = clean(faker.pokemon().name());
     File photo = new File("src/test/resources/photos/" + getRandomPhoto());
     String jobTitle = faker.job().title();
-    String company = faker.company().name().replace("'", " ");;
+    String company = clean(faker.company().name());
     String address = faker.address().fullAddress();
     String homePhone = faker.phoneNumber().phoneNumber();
     String mobile = faker.phoneNumber().cellPhone();
@@ -31,7 +31,7 @@ public class RandomContactData {
     int bDay = birthday.getDayOfMonth();
     String bMonth = StringUtils.capitalize(Month.of((birthday.getMonthValue())).name().toLowerCase());
     int bYear = birthday.getYear();
-    String notes = faker.backToTheFuture().quote().replace("'", " ");
+    String notes = clean(faker.backToTheFuture().quote());
 
     return new ContactData()
             .withFirstName(firstName)
@@ -58,5 +58,8 @@ public class RandomContactData {
     return photos.get(rnd);
   }
 
+  private String clean(String text) {
+    return text.replace("'", " ");
+  }
 }
 

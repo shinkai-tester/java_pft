@@ -17,7 +17,7 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:5.4.31.Final'
 }
 
-task testGroups (type: Test) {
+task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testngSuites/testng-groups.xml'
     }
@@ -29,31 +29,7 @@ task testGroups (type: Test) {
     }
 }
 
-task testContacts (type: Test) {
-    useTestNG {
-        suites 'src/test/resources/testngSuites/testng-contacts.xml'
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('target')) {
-        systemProperty 'target', "${target}"
-    }
-}
-
-task testAllBase (type: Test) {
-    useTestNG {
-        suites 'src/test/resources/testngSuites/testngBaseCommon.xml'
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('target')) {
-        systemProperty 'target', "${target}"
-    }
-}
-
-task testGroupsFromFiles (type: Test) {
+task testGroupsFromFiles(type: Test) {
     useTestNG {
         suites 'src/test/resources/testngSuites/testng-groups-fromFiles.xml'
     }
@@ -65,7 +41,46 @@ task testGroupsFromFiles (type: Test) {
     }
 }
 
-task testContactsFromFiles (type: Test) {
+task dbTestGroups(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-groups-DBtests.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-contacts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+}
+
+task testAllBase(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testngBaseCommon.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+}
+
+task testContactsFromFiles(type: Test) {
     useTestNG {
         suites 'src/test/resources/testngSuites/testng-contacts-fromFiles.xml'
     }
@@ -75,4 +90,25 @@ task testContactsFromFiles (type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+}
+
+task dbTestContacts(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testngSuites/testng-contacts-DBtests.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

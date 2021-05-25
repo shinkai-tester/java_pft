@@ -46,22 +46,28 @@ public class TestBase {
   }
 
   public void verifyGroupsInUIandDB () {
-    Groups dbGroups = app.db().groups();
-    Groups uiGroups = app.group().all();
-    assertThat(uiGroups, equalTo(dbGroups.stream().map((g) -> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
+    if (Boolean.getBoolean("verifyUI")) { // VM options -DverifyUI=true
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      assertThat(uiGroups, equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
   }
 
   public void verifyContactsInUIandDB() {
-    Contacts dbContacts = app.db().contacts();
-    Contacts uiContacts = app.contact().all();
-    assertThat(uiContacts, equalTo(dbContacts.stream()
-            .map((c) -> new ContactData()
-                    .withId(c.getId())
-                    .withLastName(c.getLastName())
-                    .withFirstName(c.getFirstName())
-                    .withAddress(c.getAddress())
-                    .withAllEmails(c.getEmail() + "\n" + c.getEmail2() + "\n" + c.getEmail3())
-                    .withAllPhones(c.getHomePhone() + "\n" + c.getMobile() + "\n" + c.getWorkPhone() + "\n" + c.getAddPhone()))
-            .collect(Collectors.toSet())));
+    if (Boolean.getBoolean("verifyUI")) {
+      Contacts dbContacts = app.db().contacts();
+      Contacts uiContacts = app.contact().all();
+      assertThat(uiContacts, equalTo(dbContacts.stream()
+              .map((c) -> new ContactData()
+                      .withId(c.getId())
+                      .withLastName(c.getLastName())
+                      .withFirstName(c.getFirstName())
+                      .withAddress(c.getAddress())
+                      .withAllEmails(c.getEmail() + "\n" + c.getEmail2() + "\n" + c.getEmail3())
+                      .withAllPhones(c.getHomePhone() + "\n" + c.getMobile() + "\n" + c.getWorkPhone() + "\n" + c.getAddPhone()))
+              .collect(Collectors.toSet())));
+    }
   }
 }
