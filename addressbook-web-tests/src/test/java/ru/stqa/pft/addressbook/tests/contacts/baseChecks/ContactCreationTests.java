@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests.contacts.baseChecks;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
 import java.io.File;
@@ -14,10 +15,11 @@ public class ContactCreationTests extends TestBase {
 
   @Test(testName = "Check contact creation")
   public void testContactCreation() {
+    int randomInt = (int)Math.floor(Math.random()*1000);
     app.goTo().homePage();
     Contacts before = app.contact().all();
-    int randomInt = (int)Math.floor(Math.random()*1000);
-    ContactData contact = new ContactData()
+    Groups groups = app.db().groups();
+    ContactData newContact = new ContactData()
             .withFirstName("Kazuto" + randomInt)
             .withLastName("Kazuto" + randomInt)
             .withMiddleName("Nope")
@@ -42,12 +44,13 @@ public class ContactCreationTests extends TestBase {
             .withAnniversaryYear("2021")
             .withAddAddress("446-1236, Katsuse, Fujimi-shi, Saitama")
             .withAddPhone("+(8182)949 76 43")
-            .withNotes("I would rather trust and regret, than doubt and regret.");
+            .withNotes("I would rather trust and regret, than doubt and regret.")
+            .inGroup(groups.iterator().next());
 
-    app.contact().create(contact);
+    app.contact().create(newContact);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
     assertThat(after, equalTo(
-            before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+            before.withAdded(newContact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
   }
 }

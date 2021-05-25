@@ -46,13 +46,10 @@ public class ContactHelper extends BaseHelper {
     type(By.name("address2"), contactData.getAddress());
     type(By.name("phone2"), contactData.getAddPhone());
     type(By.name("notes"), contactData.getNotes());
-    if (contactData.getGroup() != null) {
-      if (creation) {
-        List<WebElement> allOptions = getSelectOptions(By.name("new_group"));
-        boolean found = allOptions.stream().anyMatch(allOption -> allOption.getText().equals(contactData.getGroup()));
-        if (found) {
-          new Select(getElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-        }
+    if (creation) {
+      if (contactData.getGroups().size() > 0)  {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(getElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
       } else {
         Assert.assertFalse(isElementPresent(By.name("new_group")));
       }
