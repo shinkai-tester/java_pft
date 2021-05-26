@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class ContactHelper extends BaseHelper {
     type(By.name("phone2"), contactData.getAddPhone());
     type(By.name("notes"), contactData.getNotes());
     if (creation) {
-      if (contactData.getGroups().size() > 0)  {
+      if (contactData.getGroups().size() > 0) {
         Assert.assertTrue(contactData.getGroups().size() == 1);
         new Select(getElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
       } else {
@@ -97,8 +98,26 @@ public class ContactHelper extends BaseHelper {
     getElement(By.cssSelector("#maintable a[href^='view.php?id=" + id + "']")).click();
   }
 
+  public void addToGroup(ContactData contact, GroupData group) {
+    selectContactById(contact.getId());
+    selectByText(By.name("to_group"),group.getName());
+    click(By.name("add"));
+    contactCache = null;
+    verifyMessage("Users added.");
+    returnToGroupPage();
+    clearGroupFilter();
+  }
+
+  private void clearGroupFilter() {
+    selectByText(By.name("group"), "[all]");
+  }
+
   public void returnToHomePage() {
     click(By.cssSelector("#content a[href='index.php']"));
+  }
+
+  private void returnToGroupPage() {
+    click(By.cssSelector("#content a[href^='./?group=']"));
   }
 
   public void submitCreation() {

@@ -99,4 +99,17 @@ public class BaseHelper {
       }
     }
   }
+
+  public void selectByText(By by, String text) {
+    if (text != null) {
+      String existingText = new Select(getElement(by)).getFirstSelectedOption().getText();
+      if (!text.equals(existingText)) {
+        new Select(getElement(by)).selectByVisibleText(text);
+      }
+    }
+  }
+
+  public void refreshPage() {
+    wd.navigate().refresh();
+  }
 }

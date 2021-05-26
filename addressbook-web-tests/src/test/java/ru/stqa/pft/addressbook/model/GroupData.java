@@ -21,17 +21,20 @@ public class GroupData {
 
   @Expose
   @Column(name = "group_name")
-  private String name;
+  private String name = "";
 
   @Expose
   @Column(name = "group_header")
   @Type(type = "text")
-  private String header;
+  private String header = "";
 
   @Expose
   @Column(name = "group_footer")
   @Type(type = "text")
-  private String footer;
+  private String footer = "";
+
+  @Column(name = "deprecated", columnDefinition = "datetime")
+  private final String deprecated = "0000-00-00 00:00:00";
 
   @ManyToMany(mappedBy = "groups")
   private Set<ContactData> contacts = new HashSet<ContactData>();

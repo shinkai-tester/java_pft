@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -19,24 +20,24 @@ public class ContactData {
 
   @Expose
   @Column(name = "firstname")
-  private String firstName;
+  private String firstName = "";
 
   @Expose
   @Column(name = "middlename")
-  private String middleName;
+  private String middleName = "";
 
   @Expose
   @Column(name = "lastname")
-  private String lastName;
+  private String lastName = "";
 
   @Expose
   @Column(name = "nickname")
-  private String nick;
+  private String nick = "";
 
   @Expose
   @Column(name = "photo")
   @Type(type = "text")
-  private String photo;
+  private String photo = "";
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "address_in_groups",
@@ -45,92 +46,107 @@ public class ContactData {
 
   @Expose
   @Column(name = "title")
-  private String title;
+  private String title = "";
 
   @Expose
   @Column(name = "company")
-  private String company;
+  private String company = "";
 
   @Expose
   @Column(name = "address")
   @Type(type = "text")
-  private String address;
+  private String address = "";
 
   @Expose
   @Column(name = "home")
   @Type(type = "text")
-  private String homePhone;
+  private String homePhone = "";
 
   @Expose
   @Column(name = "mobile")
   @Type(type = "text")
-  private String mobile;
+  private String mobile = "";
 
   @Expose
   @Column(name = "work")
   @Type(type = "text")
-  private String workPhone;
+  private String workPhone = "";
 
   @Column(name = "fax")
   @Type(type = "text")
-  private String fax;
+  private String fax = "";
 
   @Transient
-  private String allPhones;
+  private String allPhones = "";
 
   @Expose
   @Column(name = "email")
   @Type(type = "text")
-  private String email;
+  private String email = "";
 
   @Column(name = "email2")
   @Type(type = "text")
-  private String email2;
+  private String email2 = "";
 
   @Column(name = "email3")
   @Type(type = "text")
-  private String email3;
+  private String email3 = "";
 
   @Transient
   private String allEmails;
 
   @Column(name = "homepage")
   @Type(type = "text")
-  private String homepage;
+  private String homepage = "";
 
   @Expose
   @Column(name = "bday", columnDefinition = "tinyint")
-  private String birthDay;
+  private String birthDay = "0";
 
   @Expose
   @Column(name="bmonth")
-  private String birthMonth;
+  private String birthMonth = "";
 
   @Expose
   @Column(name="byear")
-  private String birthYear;
+  private String birthYear = "";
 
   @Column(name = "aday", columnDefinition = "tinyint")
-  private String anniversaryDay;
+  private String anniversaryDay = "0";
 
   @Column(name = "amonth")
-  private String anniversaryMonth;
+  private String anniversaryMonth = "";
 
   @Column(name = "ayear")
-  private String anniversaryYear;
+  private String anniversaryYear = "";
 
   @Column(name = "address2")
   @Type(type = "text")
-  private String addAddress;
+  private String addAddress = "";
 
   @Column(name = "phone2")
   @Type(type = "text")
-  private String addPhone;
+  private String addPhone = "";
 
   @Expose
   @Column(name = "notes")
   @Type(type = "text")
-  private String notes;
+  private String notes = "";
+
+  @Column(name = "im")
+  @Type(type = "text")
+  private final String im = "";
+
+  @Column(name = "im2")
+  @Type(type = "text")
+  private final String im2 = "";
+
+  @Column(name = "im3")
+  @Type(type = "text")
+  private final String im3 = "";
+
+  @Column(name = "deprecated", columnDefinition = "datetime")
+  private final String deprecated = "0000-00-00 00:00:00";
 
   public ContactData withId(int id) {
     this.id = id;
