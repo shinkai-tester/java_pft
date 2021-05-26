@@ -24,22 +24,36 @@ public class ContactAddingToGroupTests extends TestBase {
 
     GroupData groupData = new GroupData()
             .withId(app.db().groupId())
-            .withName("Cat");
+            .withName(String.format("The Best Group%d", (int) Math.floor(Math.random() * 1000)));
 
     Contacts contacts = app.db().contacts();
     Groups groups = app.db().groups();
 
-    if (contacts.isEmpty()) {
+    Boolean newCreatedData = false;
+
+    if (contacts.isEmpty() & !(groups.isEmpty())) {
       app.db().addContact(contactData);
       usedContact = app.db().contacts().iterator().next();
+      usedGroup = app.db().groups().iterator().next();
+      newCreatedData = true;
     }
 
-    if (groups.isEmpty()) {
+    if (groups.isEmpty() & !(contacts.isEmpty())) {
       app.db().addGroup(groupData);
       usedGroup = app.db().groups().iterator().next();
+      usedContact = app.db().contacts().iterator().next();
+      newCreatedData = true;
     }
 
-    if (!(groups.isEmpty() && contacts.isEmpty())) {
+    if (groups.isEmpty() & contacts.isEmpty()) {
+      app.db().addGroup(groupData);
+      app.db().addContact(contactData);
+      usedGroup = app.db().groups().iterator().next();
+      usedContact = app.db().contacts().iterator().next();
+      newCreatedData = true;
+    }
+
+    if (!(newCreatedData)) {
       for (ContactData c : contacts) {
         for (GroupData g : groups) {
           if (!c.getGroups().contains(g)) {

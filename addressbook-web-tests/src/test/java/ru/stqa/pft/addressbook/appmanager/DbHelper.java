@@ -46,7 +46,7 @@ public class DbHelper {
   public void addContact(ContactData contactData) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    session.save(contactData);
+    session.saveOrUpdate(contactData);
     session.getTransaction().commit();
     session.close();
     Contacts contacts = contacts();
@@ -56,7 +56,7 @@ public class DbHelper {
   public void addGroup(GroupData groupData) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    session.save(groupData);
+    session.saveOrUpdate(groupData);
     session.getTransaction().commit();
     session.close();
     Groups groups = groups();

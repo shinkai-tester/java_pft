@@ -105,7 +105,7 @@ public class ContactData {
 
   @Expose
   @Column(name="bmonth")
-  private String birthMonth = "";
+  private String birthMonth = "-";
 
   @Expose
   @Column(name="byear")
@@ -115,7 +115,7 @@ public class ContactData {
   private String anniversaryDay = "0";
 
   @Column(name = "amonth")
-  private String anniversaryMonth = "";
+  private String anniversaryMonth = "-";
 
   @Column(name = "ayear")
   private String anniversaryYear = "";

@@ -11,6 +11,8 @@ import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
+
 public class ContactHelper extends BaseHelper {
 
   public ContactHelper(WebDriver wd) {
@@ -49,11 +51,12 @@ public class ContactHelper extends BaseHelper {
     type(By.name("notes"), contactData.getNotes());
     if (creation) {
       if (contactData.getGroups().size() > 0) {
-        Assert.assertTrue(contactData.getGroups().size() == 1);
-        new Select(getElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-      } else {
-        Assert.assertFalse(isElementPresent(By.name("new_group")));
+        assertEquals(contactData.getGroups().size(), 1);
+        GroupData group = contactData.getGroups().iterator().next();
+        selectByText(By.name("new_group"), group.getName());
       }
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
 
@@ -100,7 +103,7 @@ public class ContactHelper extends BaseHelper {
 
   public void addToGroup(ContactData contact, GroupData group) {
     selectContactById(contact.getId());
-    selectByText(By.name("to_group"),group.getName());
+    selectByText(By.name("to_group"), group.getName());
     click(By.name("add"));
     contactCache = null;
     verifyMessage("Users added.");
