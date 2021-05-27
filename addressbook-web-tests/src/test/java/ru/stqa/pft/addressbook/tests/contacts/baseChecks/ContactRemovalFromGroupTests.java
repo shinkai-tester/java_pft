@@ -11,13 +11,14 @@ import ru.stqa.pft.addressbook.tests.TestBase;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactAddingToGroupTests extends TestBase {
+public class ContactRemovalFromGroupTests extends TestBase {
 
   ContactData usedContact;
   GroupData usedGroup;
 
   @BeforeMethod
   public void ensurePreconditions() {
+
     ContactData contactData = new ContactData()
             .withId(app.db().contactId())
             .withFirstName("Kyou")
@@ -30,56 +31,47 @@ public class ContactAddingToGroupTests extends TestBase {
     Contacts contacts = app.db().contacts();
     Groups groups = app.db().groups();
 
-    Boolean newCreatedData = false;
-
-    if (contacts.isEmpty() & !(groups.isEmpty())) {
-      app.db().addContact(contactData);
-      usedContact = app.db().contacts().iterator().next();
-      usedGroup = app.db().groups().iterator().next();
-      newCreatedData = true;
-    }
-
     if (groups.isEmpty() & !(contacts.isEmpty())) {
       app.db().addGroup(groupData);
-      usedGroup = app.db().groups().iterator().next();
+      usedGroup = groupData;
       usedContact = app.db().contacts().iterator().next();
-      newCreatedData = true;
-    }
-
-    if (groups.isEmpty() & contacts.isEmpty()) {
-      app.db().addGroup(groupData);
-      app.db().addContact(contactData);
-      usedGroup = app.db().groups().iterator().next();
-      usedContact = app.db().contacts().iterator().next();
-      newCreatedData = true;
-    }
-
-    if (!(newCreatedData)) {
-      for (ContactData c : contacts) {
-        for (GroupData g : groups) {
-          if (!c.getGroups().contains(g)) {
-            usedContact = c;
-            usedGroup = g;
-            return;
+    } else {
+      if (!(groups.isEmpty()) & contacts.isEmpty()) {
+        usedGroup = app.db().groups().iterator().next();
+        usedContact = contactData;
+        app.db().addContact(usedContact);
+      } else {
+        if (groups.isEmpty() & contacts.isEmpty()) {
+          usedGroup = groupData;
+          usedContact = contactData;
+          app.db().addGroup(usedGroup);
+          app.db().addContact(usedContact);
+        } else {
+          for (ContactData c : contacts) {
+            if (!c.getGroups().isEmpty()) {
+              usedContact = c;
+              usedGroup = c.getGroups().iterator().next();
+              return;
+            }
           }
+          usedGroup = app.db().groups().iterator().next();
+          usedContact = app.db().contacts().iterator().next();
         }
       }
-
-      usedContact = app.db().contacts().iterator().next();
-      app.db().addGroup(groupData);
-      usedGroup = groupData;
     }
-  }
-
-  @Test
-  public void testAddContactToGroup() {
-    Contacts before = app.db().contacts();
     app.goTo().homePage();
     app.goTo().refreshPage();
     app.contact().addToGroup(usedContact, usedGroup);
-    ContactData contactWithGroup = usedContact.inGroup(usedGroup);
+  }
+
+  @Test
+  public void testRemoveContactFromGroup() {
+    Contacts before = app.db().contacts();
+    app.goTo().homePage();
+    app.goTo().refreshPage();
+    app.contact().removeFromGroup(usedContact, usedGroup);
+    ContactData contactWithoutGroup = usedContact.outOfGroup(usedGroup);
     Contacts after = app.db().contacts();
-    assertThat(after, equalTo(before.without(usedContact).withAdded(contactWithGroup)));
+    assertThat(after, equalTo(before.without(usedContact).withAdded(contactWithoutGroup)));
   }
 }
-

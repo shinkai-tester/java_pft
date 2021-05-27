@@ -37,7 +37,7 @@ public class ContactData {
   @Expose
   @Column(name = "photo")
   @Type(type = "text")
-  private String photo = "";
+  private String photo;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "address_in_groups",
@@ -443,6 +443,11 @@ public class ContactData {
 
   public ContactData inGroup(GroupData group) {
     groups.add(group);
+    return this;
+  }
+
+  public ContactData outOfGroup(GroupData group) {
+    groups.remove(group);
     return this;
   }
 }

@@ -111,6 +111,16 @@ public class ContactHelper extends BaseHelper {
     clearGroupFilter();
   }
 
+  public void removeFromGroup(ContactData contact, GroupData group) {
+    selectByText(By.name("group"), group.getName());
+    selectContactById(contact.getId());
+    click(By.name("remove"));
+    contactCache = null;
+    verifyMessage("Users removed.");
+    returnToGroupPage();
+    clearGroupFilter();
+  }
+
   private void clearGroupFilter() {
     selectByText(By.name("group"), "[all]");
   }
@@ -128,7 +138,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void selectContactById(int id) {
-    getElement(By.cssSelector("input[value='" + id + "']")).click();
+    getElement(By.cssSelector("input[type='checkbox'][value='" + id + "']")).click();
   }
 
   public void initModification(int id) {

@@ -1,17 +1,9 @@
 <list>
   <group>
-    <name>test27</name>
-    <header>header 27</header>
-    <footer>footer 27</footer>
-  </group>
-  <group>
-    <name>test46</name>
-    <header>header 46</header>
-    <footer>footer 46</footer>
-  </group>
-  <group>
-    <name>test58</name>
-    <header>header 58</header>
-    <footer>footer 58</footer>
+    <name>test16</name>
+    <header>header 16</header>
+    <footer>footer 16</footer>
+    <deprecated>0000-00-00 00:00:00</deprecated>
+    <contacts/>
   </group>
 </list>
