@@ -8,6 +8,8 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -74,12 +76,16 @@ public class ContactAddingToGroupTests extends TestBase {
   @Test
   public void testAddContactToGroup() {
     Contacts before = app.db().contacts();
+    usedContact = before.stream().filter(c -> (c.getId() == usedContact.getId())).collect(Collectors.toSet()).iterator().next();
+    Groups groupsBefore = usedContact.getGroups();
     app.goTo().homePage();
     app.goTo().refreshPage();
     app.contact().addToGroup(usedContact, usedGroup);
-    ContactData contactWithGroup = usedContact.inGroup(usedGroup);
     Contacts after = app.db().contacts();
-    assertThat(after, equalTo(before.without(usedContact).withAdded(contactWithGroup)));
+    usedContact = after.stream().filter(c -> (c.getId() == usedContact.getId())).collect(Collectors.toSet()).iterator().next();
+    assertThat(usedContact.getGroups().size(), equalTo(groupsBefore.size() + 1));
+    Groups groupsAfter = usedContact.getGroups();
+    assertThat(groupsAfter, equalTo(groupsBefore.withAdded(usedGroup)));
   }
 }
 
