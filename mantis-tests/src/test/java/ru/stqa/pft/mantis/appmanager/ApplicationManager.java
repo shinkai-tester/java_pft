@@ -16,6 +16,7 @@ public class ApplicationManager {
   public final Properties properties;
   private WebDriver wd;
   private RegistrationHelper register;
+  private FtpHelper ftp;
 
   public ApplicationManager() {
     properties = new Properties();
@@ -90,5 +91,12 @@ public class ApplicationManager {
       register = new RegistrationHelper(this);
     }
     return register;
+  }
+
+  public FtpHelper ftp() {
+    if (ftp == null) {
+      ftp = new FtpHelper(this);
+    }
+    return ftp;
   }
 }
