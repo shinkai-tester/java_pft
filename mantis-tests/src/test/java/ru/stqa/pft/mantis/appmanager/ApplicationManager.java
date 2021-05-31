@@ -19,6 +19,7 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private NavigationHelper nav;
   private MailHelper mail;
+  private JamesHelper james;
 
   public ApplicationManager() {
     properties = new Properties();
@@ -114,5 +115,12 @@ public class ApplicationManager {
       mail = new MailHelper(this);
     }
     return mail;
+  }
+
+  public JamesHelper james() {
+    if (james == null) {
+      james = new JamesHelper(this);
+    }
+    return james;
   }
 }

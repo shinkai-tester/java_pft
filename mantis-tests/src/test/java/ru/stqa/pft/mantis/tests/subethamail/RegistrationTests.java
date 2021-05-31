@@ -1,16 +1,17 @@
-package ru.stqa.pft.mantis.tests;
+package ru.stqa.pft.mantis.tests.subethamail;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.models.MailMessage;
+import ru.stqa.pft.mantis.tests.TestBase;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class RegistrationTests extends TestBase{
+public class RegistrationTests extends TestBase {
 
   @BeforeMethod
   public void startMailServer() {
