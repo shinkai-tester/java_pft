@@ -16,4 +16,8 @@ public class NavigationHelper extends HelperBase{
   public void loginPage() {
     open(baseUrl + "/login_page.php");
   }
+
+  public void manageUsersPage() {
+    open(baseUrl + "/manage_user_page.php");
+  }
 }
