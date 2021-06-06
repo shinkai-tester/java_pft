@@ -25,6 +25,7 @@ public class ApplicationManager {
   private DbHelper db;
   private HttpSession http;
   private ResetPwdHelper resetPwd;
+  private SoapHelper soap;
 
   public ApplicationManager() {
     properties = new Properties();
@@ -149,5 +150,12 @@ public class ApplicationManager {
     if (resetPwd == null)
       resetPwd = new ResetPwdHelper(this);
     return resetPwd;
+  }
+
+  public SoapHelper soap() {
+    if (soap == null) {
+      soap = new SoapHelper(this);
+    }
+    return soap;
   }
 }
