@@ -1,6 +1,8 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import biz.futureware.mantis.rpc.soap.client.*;
+import org.apache.axis.client.AxisClient;
+import org.apache.axis.configuration.SimpleProvider;
 import ru.stqa.pft.mantis.models.Issue;
 import ru.stqa.pft.mantis.models.Project;
 
@@ -32,10 +34,12 @@ public class SoapHelper {
   }
 
   private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+    SimpleProvider clientConfig = AxisLogHandler.configureAxisLogger();
+    MantisConnectLocator locator = new MantisConnectLocator();
+    locator.setEngineConfiguration(clientConfig);
+    locator.setEngine(new AxisClient(clientConfig));
     String wsdl = app.getProperty("soap.wsdl");
-    MantisConnectPortType mantisConnect = new MantisConnectLocator()
-            .getMantisConnectPort(new URL(wsdl));
-    return mantisConnect;
+    return locator.getMantisConnectPort(new URL(wsdl));
   }
 
 
@@ -59,5 +63,21 @@ public class SoapHelper {
                     .withName(createdIssueData.getProject().getName()));
   }
 
+  public Issue getIssueById(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+    String adminLogin = app.getProperty("web.adminLogin");
+    String adminPassword = app.getProperty("web.adminPassword");
+    MantisConnectPortType mc = getMantisConnect();
+    IssueData issueData = mc.mc_issue_get(adminLogin, adminPassword, BigInteger.valueOf(issueId));
+    ObjectRef project = issueData.getProject();
+    ObjectRef status = issueData.getStatus();
+    ObjectRef resolution = issueData.getResolution();
 
+    return new Issue().withId(issueData.getId().intValue())
+            .withSummary(issueData.getSummary())
+            .withDescription(issueData.getDescription())
+            .withStatus(status.getName())
+            .withResolution(resolution.getName())
+            .withProject(new Project().withId(project.getId().intValue())
+                    .withName(project.getName()));
+  }
 }

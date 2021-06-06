@@ -1,9 +1,5 @@
 package ru.stqa.pft.mantis.tests.soap;
 
-import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
-import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
-import biz.futureware.mantis.rpc.soap.client.ProjectData;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.models.Issue;
 import ru.stqa.pft.mantis.models.Project;
@@ -11,7 +7,6 @@ import ru.stqa.pft.mantis.tests.TestBase;
 
 import javax.xml.rpc.ServiceException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Set;
 
@@ -21,6 +16,8 @@ public class SoapTests extends TestBase {
 
   @Test
   public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
+    skipIfNotFixed(1);
+
     Set<Project> projects = app.soap().getProjects();
     System.out.println("==================================== PROJECT DATA =======================================");
     System.out.println("Projects number: " + projects.size());
