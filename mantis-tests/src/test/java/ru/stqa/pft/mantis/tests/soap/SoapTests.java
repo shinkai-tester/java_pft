@@ -37,5 +37,7 @@ public class SoapTests extends TestBase {
             .withDescription(String.format("Test issue %s description", randomInt)).withProject(projects.iterator().next());
     Issue createdIssue = app.soap().addIssue(issue);
     assertEquals(issue.getSummary(), createdIssue.getSummary());
+    System.out.println("==================================== NEW ISSUE =======================================");
+    System.out.println(createdIssue);
   }
 }
