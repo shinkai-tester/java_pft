@@ -7,8 +7,6 @@ dependencies {
     implementation 'org.testng:testng:7.4.0'
 }
 
-//dependencies.implementation group: 'com.sun.xml.ws', name: 'rt', version: '2.3.3'
-
 buildscript{
     repositories{
         jcenter()
