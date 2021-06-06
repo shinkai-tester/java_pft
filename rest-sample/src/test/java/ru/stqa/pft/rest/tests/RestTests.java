@@ -27,16 +27,15 @@ public class RestTests extends TestBase{
 
   @Test
   public void testGetIssues() throws IOException {
+    skipIfNotFixed(1106);
+
     Set<Issue> issues = app.rest().getIssues();
     System.out.println("==================================== ISSUES =======================================");
     System.out.println("Issues number: " + issues.size());
     if (!issues.isEmpty()) {
       System.out.println("Issues:");
       for (Issue issue : issues) {
-        System.out.println("  {\"id\":" + issue.getId()
-                + ",\"subject\":\"" + issue.getSubject()
-                + "\",\"description\":\"" + issue.getDescription()
-                + "\",\"state\":\"" + issue.getStatus() + "\"}");
+        System.out.println(issue);
       }
     }
   }

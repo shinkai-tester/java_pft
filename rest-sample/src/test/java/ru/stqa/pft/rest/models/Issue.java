@@ -56,6 +56,16 @@ public class Issue {
   }
 
   @Override
+  public String toString() {
+    return "Issue{" +
+            "id=" + id +
+            ", subject='" + subject + '\'' +
+            ", description='" + description + '\'' +
+            ", state_name='" + state_name + '\'' +
+            '}';
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(id, subject, description);
   }

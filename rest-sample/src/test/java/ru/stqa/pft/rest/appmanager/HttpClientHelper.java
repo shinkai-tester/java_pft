@@ -29,7 +29,7 @@ public class HttpClientHelper {
     String url = app.getProperty("api.url");
     String json = getExecutor().execute(Request.Get(url + "/issues.json"))
             .returnContent().asString();
-    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement parsed = JsonParser.parseString(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");
     return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
   }
@@ -41,7 +41,17 @@ public class HttpClientHelper {
                     (new BasicNameValuePair("subject", newIssue.getSubject()),
                             new BasicNameValuePair("description", newIssue.getDescription())))
             .returnContent().asString();
-    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement parsed = JsonParser.parseString(json);
     return parsed.getAsJsonObject().get("issue_id").getAsInt();
+  }
+
+  public Set<Issue> getIssueById(int issueId) throws IOException {
+    String url = app.getProperty("api.url");
+    String json = getExecutor().execute(Request
+            .Get(url + "/issues/" + issueId + ".json"))
+            .returnContent().asString();
+    JsonElement parsed = JsonParser.parseString(json);
+    JsonElement issues = parsed.getAsJsonObject().get("issues");
+    return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() { }.getType());
   }
 }

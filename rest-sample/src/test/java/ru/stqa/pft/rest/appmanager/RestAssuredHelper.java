@@ -23,7 +23,7 @@ public class RestAssuredHelper {
   public Set<Issue> getIssues() {
     String url = app.getProperty("api.url");
     String json = RestAssured.get(url + "/issues.json").asString();
-    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement parsed = JsonParser.parseString(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");
     return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
   }
@@ -34,12 +34,20 @@ public class RestAssuredHelper {
             .param("subject", newIssue.getSubject())
             .param("description", newIssue.getDescription())
             .post(url + "/issues.json").asString();
-    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement parsed = JsonParser.parseString(json);
     return parsed.getAsJsonObject().get("issue_id").getAsInt();
   }
 
   public AuthenticationScheme auth() {
     String key = app.getProperty("api.key");
     return RestAssured.basic(key, "");
+  }
+
+  public Set<Issue> getIssueById(int issueId) {
+    String url = app.getProperty("api.url");
+    String json = RestAssured.get(url + "/issues/" + issueId + ".json").asString();
+    JsonElement parsed = JsonParser.parseString(json);
+    JsonElement issues = parsed.getAsJsonObject().get("issues");
+    return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
   }
 }
