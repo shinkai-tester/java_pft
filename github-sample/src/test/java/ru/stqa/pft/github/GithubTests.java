@@ -13,7 +13,7 @@ public class GithubTests {
 
   @Test
   public void testCommits() throws IOException {
-    RtGithub github = new RtGithub("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");
+    RtGithub github = new RtGithub("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");
     RepoCommits commits = github.repos().get(
             new Coordinates.Simple("shinkai-tester", "java_pft")).commits();
     for (RepoCommit commit : commits.iterate(new ImmutableBiMap.Builder<String, String>().build())) {
