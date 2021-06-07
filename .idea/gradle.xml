@@ -9,7 +9,6 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/addressbook-web-tests" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-6.4" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/addressbook-web-tests" />
@@ -20,9 +19,20 @@
         <option name="delegatedBuild" value="false" />
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/github-sample" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-6.4" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/github-sample" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/mantis-tests" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-6.4" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/mantis-tests" />
@@ -30,10 +40,11 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/rest-sample" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-6.4" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/rest-sample" />
@@ -46,7 +57,6 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/sandbox" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-6.4" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/sandbox" />
@@ -54,10 +64,11 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/soap-sample" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/gradle-6.4" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/soap-sample" />

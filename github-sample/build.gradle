@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+repositories.mavenCentral()
+
+dependencies {
+    implementation 'org.testng:testng:7.4.0'
+    implementation 'com.jcabi:jcabi-github:1.1.2'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+}
+
+test.useTestNG()
+
