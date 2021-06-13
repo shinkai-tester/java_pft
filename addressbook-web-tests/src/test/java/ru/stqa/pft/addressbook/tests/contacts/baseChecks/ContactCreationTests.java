@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests.contacts.baseChecks;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.tests.TestBase;
 
@@ -16,6 +17,12 @@ public class ContactCreationTests extends TestBase {
   @Test(testName = "Check contact creation")
   public void testContactCreation() {
     int randomInt = (int)Math.floor(Math.random()*1000);
+
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("TestGroup " + randomInt));
+    }
+    
     app.goTo().homePage();
     Contacts before = app.contact().all();
     Groups groups = app.db().groups();
