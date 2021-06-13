@@ -32,7 +32,7 @@ task testGroups(type: Test) {
     }
 }
 
-/*task testGroupsFromFiles(type: Test) {
+task testGroupsFromFiles(type: Test) {
     useTestNG {
         suites 'src/test/resources/testngSuites/testng-groups-fromFiles.xml'
     }
@@ -47,6 +47,7 @@ task testGroups(type: Test) {
     }
 }
 
+/*
 task dbTestGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testngSuites/testng-groups-DBtests.xml'
