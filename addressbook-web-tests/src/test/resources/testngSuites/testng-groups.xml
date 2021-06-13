@@ -3,9 +3,9 @@
 <suite name="Base groups tests" verbose="1" >
     <test name="Groups" >
         <classes>
-            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupCreationTests" />
+<!--            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupCreationTests" /> -->
             <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupModificationTests" />
-            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupDeletionTests" />
-        </classes>
-    </test>
-</suite>
+<!--            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupDeletionTests" /> -->
+                   </classes>
+               </test>
+           </suite>
