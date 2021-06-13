@@ -1,11 +1,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Base groups tests" verbose="1" >
+<!--<suite name="Base groups tests" verbose="1" parallel="classes" thread-count="3">-->
+<suite name="Base groups tests" verbose="1">
     <test name="Groups" >
         <classes>
-<!--            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupCreationTests" /> -->
+            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupCreationTests" />
             <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupModificationTests" />
-<!--            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupDeletionTests" /> -->
+            <class name="ru.stqa.pft.addressbook.tests.groups.baseChecks.GroupDeletionTests" />
                    </classes>
                </test>
            </suite>
