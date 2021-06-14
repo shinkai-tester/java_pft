@@ -46,8 +46,9 @@ public class GroupDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> groupsFromXml() throws IOException {
+    String numberOfGroups = System.getProperty("numGroups", "1");
 
-    String[] arguments = new String[] {"-c", "1", "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "xml"};
+    String[] arguments = new String[] {"-c", numberOfGroups, "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "xml"};
     GroupDataGenerator.main(arguments);
 
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.xml"));) {

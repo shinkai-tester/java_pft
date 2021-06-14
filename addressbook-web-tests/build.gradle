@@ -45,6 +45,9 @@ task testGroupsFromFiles(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+    if (project.hasProperty('numGroups')) {
+        systemProperty 'numGroups', "${numGroups}"
+    }
 }
 
 
