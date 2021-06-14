@@ -27,10 +27,9 @@ public class GroupDataProviders {
   }
 
   @DataProvider
-  @Parameters({"numberOfGroupsToCreate"})
-  public static Iterator<Object[]> groupsFromCsv(final String numberOfGroupsToCreate) throws IOException {
+  public static Iterator<Object[]> groupsFromCsv() throws IOException {
 
-    String[] arguments = new String[] {"-c", numberOfGroupsToCreate, "-f", "src/test/resources/dataFiles/groups/groups.csv", "-d", "csv"};
+    String[] arguments = new String[] {"-c", "1", "-f", "src/test/resources/dataFiles/groups/groups.csv", "-d", "csv"};
     GroupDataGenerator.main(arguments);
 
     List<Object[]> list = new ArrayList<>();
@@ -46,10 +45,9 @@ public class GroupDataProviders {
   }
 
   @DataProvider
-  @Parameters({"numberOfGroupsToCreate"})
   public static Iterator<Object[]> groupsFromXml(final String numberOfGroupsToCreate) throws IOException {
 
-    String[] arguments = new String[] {"-c", numberOfGroupsToCreate, "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "csv"};
+    String[] arguments = new String[] {"-c", "1", "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "xml"};
     GroupDataGenerator.main(arguments);
 
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.xml"));) {
@@ -68,6 +66,10 @@ public class GroupDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> groupsFromJson() throws IOException {
+
+    String[] arguments = new String[] {"-c", "1", "-f", "src/test/resources/dataFiles/groups/groups.json", "-d", "json"};
+    GroupDataGenerator.main(arguments);
+
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.json"))) {
       StringBuilder json = new StringBuilder();
       String line = reader.readLine();
