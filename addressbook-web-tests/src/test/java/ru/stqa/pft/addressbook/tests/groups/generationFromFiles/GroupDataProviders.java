@@ -45,7 +45,7 @@ public class GroupDataProviders {
   }
 
   @DataProvider
-  public static Iterator<Object[]> groupsFromXml(final String numberOfGroupsToCreate) throws IOException {
+  public static Iterator<Object[]> groupsFromXml() throws IOException {
 
     String[] arguments = new String[] {"-c", "1", "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "xml"};
     GroupDataGenerator.main(arguments);
