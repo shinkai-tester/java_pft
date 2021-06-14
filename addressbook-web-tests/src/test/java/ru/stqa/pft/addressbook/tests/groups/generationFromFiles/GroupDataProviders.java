@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 import ru.stqa.pft.addressbook.generators.GroupDataGenerator;
 import ru.stqa.pft.addressbook.model.GroupData;
 

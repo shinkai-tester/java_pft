@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
+import ru.stqa.pft.addressbook.generators.ContactDataGenerator;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.io.BufferedReader;
@@ -20,6 +21,11 @@ public class ContactDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> contactsFromCsv() throws IOException {
+
+    String numberOfContacts = System.getProperty("numContacts", "1");
+    String[] arguments = new String[] {"-c", numberOfContacts, "-f", "src/test/resources/dataFiles/contacts/contacts.csv", "-d", "csv"};
+    ContactDataGenerator.main(arguments);
+
     List<Object[]> list = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/contacts/contacts.csv"))) {
       String line = reader.readLine();
@@ -50,6 +56,11 @@ public class ContactDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> contactsFromJson() throws IOException {
+
+    String numberOfContacts = System.getProperty("numContacts", "1");
+    String[] arguments = new String[] {"-c", numberOfContacts, "-f", "src/test/resources/dataFiles/contacts/contacts.json", "-d", "json"};
+    ContactDataGenerator.main(arguments);
+
     JsonDeserializer<File> deserializer = (json, typeOfT, context) -> new File(json.getAsJsonPrimitive().getAsString());
     Gson gson = new GsonBuilder().registerTypeAdapter(File.class, deserializer).create();
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/contacts/contacts.json"))) {

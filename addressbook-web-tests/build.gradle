@@ -113,6 +113,9 @@ task testContactsFromFiles(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+    if (project.hasProperty('numContacts')) {
+        systemProperty 'numContacts', "${numContacts}"
+    }
 }
 
 task dbTestContacts(type: Test) {
