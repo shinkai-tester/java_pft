@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import ru.stqa.pft.addressbook.generators.GroupDataGenerator;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.BufferedReader;
@@ -26,6 +28,10 @@ public class GroupDataProviders {
 
   @DataProvider
   public static Iterator<Object[]> groupsFromCsv() throws IOException {
+
+    String[] arguments = new String[] {"-c", "3", "-f", "src/test/resources/dataFiles/groups/groups.csv", "-d", "csv"};
+    GroupDataGenerator.main(arguments);
+
     List<Object[]> list = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.csv"))) {
       String line = reader.readLine();
@@ -39,7 +45,12 @@ public class GroupDataProviders {
   }
 
   @DataProvider
-  public static Iterator<Object[]> groupsFromXml() throws IOException {
+  @Parameters("numberOfGroupsToCreate")
+  public static Iterator<Object[]> groupsFromXml(final String numberOfGroupsToCreate) throws IOException {
+
+    String[] arguments = new String[] {"-c", numberOfGroupsToCreate, "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "csv"};
+    GroupDataGenerator.main(arguments);
+
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/dataFiles/groups/groups.xml"));) {
       StringBuilder xml = new StringBuilder();
       String line = reader.readLine();
