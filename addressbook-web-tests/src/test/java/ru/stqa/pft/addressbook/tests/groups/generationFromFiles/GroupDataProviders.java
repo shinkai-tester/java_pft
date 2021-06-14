@@ -45,7 +45,7 @@ public class GroupDataProviders {
   }
 
   @DataProvider
-  @Parameters("numberOfGroupsToCreate")
+  @Parameters({"numberOfGroupsToCreate"})
   public static Iterator<Object[]> groupsFromXml(final String numberOfGroupsToCreate) throws IOException {
 
     String[] arguments = new String[] {"-c", numberOfGroupsToCreate, "-f", "src/test/resources/dataFiles/groups/groups.xml", "-d", "csv"};
