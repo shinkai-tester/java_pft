@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,10 +20,12 @@ public class ContactHelper extends BaseHelper {
     super(wd);
   }
 
+  @Step("Открываю страницу создания контакта")
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
 
+  @Step("Заполняю поля контакта данными")
   public void fillForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstName());
     type(By.name("middlename"), contactData.getMiddleName());
@@ -60,6 +63,7 @@ public class ContactHelper extends BaseHelper {
     }
   }
 
+  @Step("Создаю контакт")
   public void create(ContactData contact) {
     initContactCreation();
     fillForm(contact, true);
@@ -69,6 +73,7 @@ public class ContactHelper extends BaseHelper {
     returnToHomePage();
   }
 
+  @Step("Редактирую контакт")
   public void modify(ContactData contact) {
     fillForm(contact, false);
     submitUpdate();
@@ -77,6 +82,7 @@ public class ContactHelper extends BaseHelper {
     returnToHomePage();
   }
 
+  @Step("Удаляю контакт")
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     initDeletionHome();
@@ -85,6 +91,7 @@ public class ContactHelper extends BaseHelper {
     verifyMessage("Record successful deleted");
   }
 
+  @Step("Удаляю все контакты")
   public void clearAll() {
     selectAll();
     initDeletionHome();
@@ -93,14 +100,17 @@ public class ContactHelper extends BaseHelper {
     verifyMessage("Record successful deleted");
   }
 
+  @Step("Выбираю все контакты")
   public void selectAll() {
     click(By.id("MassCB"));
   }
 
+  @Step("Перехожу на страницу деталей контакта")
   public void viewDetails(int id) {
     getElement(By.cssSelector("#maintable a[href^='view.php?id=" + id + "']")).click();
   }
 
+  @Step("Добавляю контакт в группу")
   public void addToGroup(ContactData contact, GroupData group) {
     selectContactById(contact.getId());
     selectByText(By.name("to_group"), group.getName());
@@ -111,6 +121,7 @@ public class ContactHelper extends BaseHelper {
     clearGroupFilter();
   }
 
+  @Step("Удаляю контакт из группы")
   public void removeFromGroup(ContactData contact, GroupData group) {
     selectByText(By.name("group"), group.getName());
     selectContactById(contact.getId());
@@ -121,38 +132,47 @@ public class ContactHelper extends BaseHelper {
     clearGroupFilter();
   }
 
+  @Step("Убираю фильтр по группам")
   private void clearGroupFilter() {
     selectByText(By.name("group"), "[all]");
   }
 
+  @Step("Возвращаюсь к странице с контактами")
   public void returnToHomePage() {
     click(By.cssSelector("#content a[href='index.php']"));
   }
 
+  @Step("Возвращаюсь к странице с группами")
   private void returnToGroupPage() {
     click(By.cssSelector("#content a[href^='./?group=']"));
   }
 
+  @Step("Подтверждаю создание контакта")
   public void submitCreation() {
     click(By.xpath("(//input[@name='submit'])[1]"));
   }
 
+  @Step("Выбираю контакт по его идентификатору")
   public void selectContactById(int id) {
     getElement(By.cssSelector("input[type='checkbox'][value='" + id + "']")).click();
   }
 
+  @Step("Перехожу на страницу редактирования контакта")
   public void initModification(int id) {
     getElement(By.cssSelector("#maintable a[href='edit.php?id=" + id + "']")).click();
   }
 
+  @Step("Инициализирую изменение контакта со страницы просмотра деталей контакта")
   public void initModificationFromDetails(int id) {
     getElement(By.name("modifiy")).click();
   }
 
+  @Step("Удаляю контакт со страницы контактов home")
   private void initDeletionHome() {
     click(By.cssSelector("input[value='Delete']"));
   }
 
+  @Step("Подтверждаю изменение контакта")
   public void submitUpdate() {
     click(By.xpath("(//input[@name='update'])[1]"));
   }
@@ -161,12 +181,14 @@ public class ContactHelper extends BaseHelper {
     return isElementPresent(By.name("selected[]"));
   }
 
+  @Step("Получаю актуальное количество контактов")
   public int count() {
     return getElementList(By.name("entry")).size();
   }
 
   private Contacts contactCache = null;
 
+  @Step("Получаю актуальный список контактов")
   public Contacts all() {
     if (contactCache != null) {
       return new Contacts(contactCache);
@@ -192,6 +214,7 @@ public class ContactHelper extends BaseHelper {
     return new Contacts(contactCache);
   }
 
+  @Step("Получаю информацию о контакте со страницы редактирования")
   public ContactData infoFromEditForm(ContactData contact) {
     initModification(contact.getId());
     String firstname = getElement(By.name("firstname")).getAttribute("value");

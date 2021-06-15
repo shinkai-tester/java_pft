@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -86,6 +87,7 @@ public class BaseHelper {
     }
   }
 
+  @Step("Проверяю сообщение о проделанном действии")
   public void verifyMessage(String expectedMessage) {
     String actualMessage = getElement(By.cssSelector("div.msgbox")).getText();
     Assert.assertTrue(actualMessage.contains(expectedMessage));
