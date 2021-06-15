@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests.groups.baseChecks;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
@@ -10,6 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
 
+  @Description("Проверка создания группы")
   @Test(testName = "Check group creation")
   public void testGroupCreation() {
     app.goTo().groupPage();
@@ -22,6 +25,7 @@ public class GroupCreationTests extends TestBase {
             before.withAdded(group.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
   }
 
+  @Description("Проверка создания некорректной группы")
   @Test(testName = "Unable to create a group with '")
   public void testBadGroupCreation() {
     app.goTo().groupPage();

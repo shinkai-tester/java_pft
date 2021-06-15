@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests.groups.baseChecks;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -20,6 +22,7 @@ public class GroupDeletionTests extends TestBase {
     }
   }
 
+  @Description("Проверка удаления группы")
   @Test(testName = "Check group deletion")
   public void testGroupDeletion() {
     Groups before = app.group().all();

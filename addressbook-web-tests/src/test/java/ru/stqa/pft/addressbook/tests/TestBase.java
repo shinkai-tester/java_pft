@@ -3,22 +3,23 @@ package ru.stqa.pft.addressbook.tests;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+@Listeners(MyTestListener.class)
 public class TestBase {
 
   protected static final ApplicationManager app
@@ -26,8 +27,9 @@ public class TestBase {
   Logger logger = LoggerFactory.getLogger(TestBase.class);
 
   @BeforeSuite
-  public void setUp() throws IOException {
+  public void setUp(ITestContext context) throws IOException {
     app.init();
+    context.setAttribute("app", app);
   }
 
   @AfterSuite(alwaysRun = true)
@@ -45,7 +47,7 @@ public class TestBase {
     logger.info("Stop test " + m.getName());
   }
 
-  public void verifyGroupsInUIandDB () {
+  public void verifyGroupsInUIandDB() {
     if (Boolean.getBoolean("verifyUI")) { // VM options -DverifyUI=true
       Groups dbGroups = app.db().groups();
       Groups uiGroups = app.group().all();

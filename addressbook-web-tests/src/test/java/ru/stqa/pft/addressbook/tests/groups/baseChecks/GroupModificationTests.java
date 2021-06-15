@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests.groups.baseChecks;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -20,6 +22,7 @@ public class GroupModificationTests extends TestBase {
     }
   }
 
+  @Description("Проверка редактирования группы")
   @Test(testName = "Check group update")
   public void testGroupModification() {
     Groups before = app.group().all();

@@ -1,8 +1,6 @@
 apply plugin: 'java'
 
-repositories {
-    mavenCentral()
-}
+repositories.mavenCentral()
 
 dependencies {
     implementation 'org.testng:testng:7.4.0'
@@ -17,6 +15,9 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:5.4.31.Final'
 }
 
+/**
+ * Test Suites
+ */
 task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testngSuites/testng-groups.xml'
@@ -136,5 +137,30 @@ task dbTestContacts(type: Test) {
     }
 }
 
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
+/**
+ * Setting encoding during compilation in Java and Test classes
+ */
+tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
+tasks.withType(Test) { systemProperty "file.encoding", "UTF-8" }
+
+/**
+ * Allure settings
+ */
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.8.1"
+    }
+}
+
+apply plugin: 'io.qameta.allure'
+
+allure {
+    version = '2.13.6'
+    autoconfigure = true
+    aspectjVersion = '1.9.6'
+    aspectjweaver = false
+    allureJavaVersion = '2.13.6'
+}
