@@ -13,6 +13,7 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'mysql:mysql-connector-java:8.0.25'
     implementation 'org.hibernate:hibernate-core:5.4.31.Final'
+    implementation 'org.robotframework:robotframework:4.0.3'
 }
 
 /**
@@ -163,4 +164,14 @@ allure {
     aspectjVersion = '1.9.6'
     aspectjweaver = false
     allureJavaVersion = '2.13.6'
+}
+
+/**
+ * Robot Framework settings
+ */
+task robotFramework(type: JavaExec) {
+    main = 'org.robotframework.RobotFramework'
+    classpath = sourceSets.test.runtimeClasspath
+    args '--outputdir', 'build/rf-report'
+    args 'src/test/resources/robotframework'
 }
